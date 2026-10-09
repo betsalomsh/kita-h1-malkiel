@@ -3,1623 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>האתר הרשמי של כיתה ח'1 מלכיאל</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome CDN -->
+    <title>האתר הרשמי של כיתה ח1 מלכיאל</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Heebo & Rubik for rich Hebrew styling -->
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800;900&family=Rubik:wght@400;600;700;900&display=swap" rel="stylesheet">
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            800: '#3730a3',
-                            900: '#312e81',
-                        },
-                        accent: {
-                            purple: '#a855f7',
-                            pink: '#ec4899',
-                            amber: '#f59e0b',
-                            emerald: '#10b981',
-                            cyan: '#06b6d4'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Heebo', 'Rubik', 'sans-serif'],
-                        heading: ['Rubik', 'Heebo', 'sans-serif']
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 4s ease-in-out infinite',
-                        'gradient-x': 'gradientX 6s ease infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-8px)' },
-                        },
-                        gradientX: {
-                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
-                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rubik', sans-serif;
+        }
+
         body {
-            font-family: 'Heebo', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #311042 100%);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            direction: rtl;
             min-height: 100vh;
-            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Glassmorphism utility */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
         }
 
-        .glass-card-interactive {
-            background: rgba(30, 41, 59, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.25s ease-in-out;
-        }
-        .glass-card-interactive:hover {
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.3);
-            transform: translateY(-2px);
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: -30px auto 2rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.5);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.4);
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(168, 85, 247, 0.7);
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .card:hover {
+            box-shadow: var(--shadow-lg);
         }
 
-        .gradient-bg {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.8rem;
         }
 
-        .chat-bubble-user {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            border-radius: 18px 18px 4px 18px;
+        /* Inputs & Buttons */
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #f8fafc;
         }
 
-        .chat-bubble-other {
-            background: rgba(51, 65, 85, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px 18px 18px 4px;
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            background-color: #fff;
         }
 
-        .chat-bubble-admin {
-            background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
-            border-radius: 18px 18px 18px 4px;
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
         }
 
-        .badge-pulse {
-            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-            animation: pulse-red 2s infinite;
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
         }
-        @keyframes pulse-red {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+
+        .btn-admin {
+            background-color: var(--danger);
+        }
+
+        .btn-admin:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #059669;
+        }
+
+        /* Login Layout */
+        .login-wrapper {
+            max-width: 480px;
+            margin: 2rem auto;
+        }
+
+        .login-box {
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.2rem;
+        }
+
+        /* Chat Section */
+        .chat-box {
+            height: 380px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            background: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            max-width: 85%;
+            box-shadow: var(--shadow-sm);
+            border-right: 4px solid var(--primary);
+            align-self: flex-start;
+            word-wrap: break-word;
+        }
+
+        .message.admin-msg {
+            border-right-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+            gap: 1rem;
+        }
+
+        .message-sender {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* Announcements & Polls */
+        .announcement-item {
+            background: #fefce8;
+            border-right: 5px solid var(--accent);
+            padding: 1rem 1.2rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.8rem;
+        }
+
+        .poll-option {
+            background: #f1f5f9;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .poll-option:hover {
+            background: #e2e8f0;
+        }
+
+        /* Badge */
+        .badge {
+            background: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+
+        /* Responsive Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="relative overflow-x-hidden min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- Background Animated Graphics Elements -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-32 -right-32 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div class="absolute top-1/2 -left-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1.5s;"></div>
-        <div class="absolute -bottom-32 right-1/4 w-96 h-96 bg-pink-600/15 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 3s;"></div>
+    <header>
+        <h1>האתר הרשמי של כיתה ח1 מלכיאל</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- מסך התחברות -->
+        <div id="login-screen" class="card login-wrapper">
+            <h2 class="card-title"><i class="fa-solid fa-lock"></i> התחברות למערכת</h2>
+            
+            <div class="login-box">
+                <h3><i class="fa-solid fa-user-graduate"></i> כניסת תלמיד</h3>
+                <input type="password" id="student-pass" placeholder="הכנס סיסמת תלמיד">
+                <button class="btn" onclick="checkPassword('student')">התחבר כתלמיד</button>
+            </div>
+
+            <div class="login-box">
+                <h3><i class="fa-solid fa-user-shield"></i> כניסת מנהל</h3>
+                <input type="password" id="admin-pass" placeholder="הכנס סיסמת מנהל">
+                <button class="btn btn-admin" onclick="checkPassword('admin')">התחבר כמנהל</button>
+            </div>
+        </div>
+
+        <!-- המסך הראשי -->
+        <div id="main-screen" style="display: none;">
+            
+            <div class="grid-2">
+                <!-- לוח הודעות -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> לוח הודעות כיתתי</h2>
+                    <div id="announcements-list">
+                        <div class="announcement-item">
+                            <strong>מערכת:</strong> ברוכים הבאים לאתר הרשמי של כיתה ח1 מלכיאל!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- סקר כיתתי -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-pie" style="color: var(--primary);"></i> סקר כיתתי פעיל</h2>
+                    <div id="polls-container">
+                        <p style="margin-bottom: 1rem; font-weight: 600;">מה הפעילות המועדפת ליום הגיבוש הקרוב?</p>
+                        <div class="poll-option" onclick="vote('טיול בטבע')"><span>1. טיול בטבע</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="poll-option" onclick="vote('ערב סרט')"><span>2. ערב סרט בכיתה</span> <i class="fa-solid fa-chevron-left"></i></div>
+                        <div class="poll-option" onclick="vote('טורניר ספורט')"><span>3. טורניר ספורט מושקע</span> <i class="fa-solid fa-chevron-left"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- צ'אט כיתתי בלייב -->
+            <div class="card">
+                <h2 class="card-title"><i class="fa-solid fa-comments" style="color: var(--success);"></i> צ'אט כיתתי בלייב</h2>
+                <div class="chat-box" id="chat-messages">
+                    <div class="message"><strong>מערכת:</strong> מתחבר לצ'אט בלייב...</div>
+                </div>
+                <div style="display: flex; gap: 0.8rem;">
+                    <input type="text" id="chat-input" placeholder="כתוב הודעה לכיתה..." style="margin-bottom: 0;">
+                    <button id="send-btn" class="btn" style="width: auto; padding: 0 1.8rem;"><i class="fa-solid fa-paper-plane"></i> שלח</button>
+                </div>
+            </div>
+
+            <!-- שאלות ותשובות (Q&A) -->
+            <div class="card">
+                <h2 class="card-title"><i class="fa-solid fa-circle-question" style="color: #8b5cf6;"></i> שאלות ותשובות</h2>
+                <input type="text" id="qa-question" placeholder="יש לך שאלה? כתוב אותה כאן...">
+                <button class="btn btn-success" onclick="postQuestion()" style="margin-bottom: 1rem;">שלח שאלה</button>
+                <div id="qa-list">
+                    <!-- שאלות שייתווספו -->
+                </div>
+            </div>
+
+            <!-- פאנל ניהול (מיועד למנהל בלבד) -->
+            <div id="admin-panel" class="card" style="display: none; border: 2px solid var(--danger);">
+                <h2 class="card-title"><i class="fa-solid fa-gears" style="color: var(--danger);"></i> פאנל ניהול מערכת <span class="badge">מנהל</span></h2>
+                <p style="margin-bottom: 0.8rem; font-weight: 600;">פרסם הודעה חדשה ללוח ההודעות:</p>
+                <textarea id="new-announcement" rows="3" placeholder="כתוב את ההודעה שתופיע לכל הכיתה..."></textarea>
+                <button class="btn btn-admin" onclick="postAnnouncement()">פרסם הודעה כיתתית</button>
+            </div>
+
+        </div>
     </div>
 
-    <!-- MAIN WRAPPER -->
-    <div id="app" class="relative z-10 flex flex-col min-h-screen">
+    <footer>
+        כל הזכויות שמורות לבצלאל עזריאל ולגמיני
+    </footer>
 
-        <!-- HEADER / NAVIGATION -->
-        <header id="main-header" class="hidden sticky top-0 z-40 glass-nav transition-all duration-300">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
-                    
-                    <!-- LOGO & BRAND -->
-                    <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('announcements')">
-                        <div class="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-500/30 transform hover:rotate-6 transition-transform">
-                            ח'1
-                        </div>
-                        <div>
-                            <h1 class="text-xl sm:text-2xl font-black gradient-text tracking-wide leading-tight">
-                                ח'1 מלכיאל
-                            </h1>
-                            <p class="text-xs text-slate-400 font-medium">האתר הרשמי של הכיתה</p>
-                        </div>
-                    </div>
-
-                    <!-- DESKTOP TABS -->
-                    <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-                        <button onclick="switchTab('announcements')" id="nav-btn-announcements" class="nav-tab px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-                            <i class="fa-solid fa-bullhorn text-amber-400"></i>
-                            <span>הודעות רשמיות</span>
-                        </button>
-                        <button onclick="switchTab('chat')" id="nav-btn-chat" class="nav-tab px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-                            <i class="fa-solid fa-comments text-indigo-400"></i>
-                            <span>צ'אט כיתתי</span>
-                        </button>
-                        <button onclick="switchTab('polls')" id="nav-btn-polls" class="nav-tab px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-                            <i class="fa-solid fa-square-poll-vertical text-emerald-400"></i>
-                            <span>סקרים</span>
-                        </button>
-                        <button onclick="switchTab('qa')" id="nav-btn-qa" class="nav-tab px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-                            <i class="fa-solid fa-circle-question text-cyan-400"></i>
-                            <span>שאלות למנהלים</span>
-                        </button>
-                        
-                        <!-- ADMIN ONLY TABS -->
-                        <div id="admin-tabs-group" class="hidden flex items-center gap-1 border-r border-slate-700/60 pr-2 mr-2">
-                            <button onclick="switchTab('admin-chat')" id="nav-btn-admin-chat" class="nav-tab px-3 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30">
-                                <i class="fa-solid fa-user-shield"></i>
-                                <span>צ'אט מנהלים</span>
-                            </button>
-                            <button onclick="switchTab('user-management')" id="nav-btn-user-management" class="nav-tab px-3 py-2 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center gap-2 text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 relative">
-                                <i class="fa-solid fa-users-gear"></i>
-                                <span>ניהול</span>
-                                <span id="pending-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center badge-pulse">0</span>
-                            </button>
-                        </div>
-                    </nav>
-
-                    <!-- USER INFO & LOGOUT -->
-                    <div class="flex items-center gap-3">
-                        <div class="hidden sm:flex flex-col text-left">
-                            <span id="current-user-name" class="font-bold text-sm text-slate-100"></span>
-                            <span id="current-user-role-badge" class="text-xs px-2 py-0.5 rounded-full inline-block text-center font-bold"></span>
-                        </div>
-                        <button onclick="logout()" title="התנתק" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-slate-700 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- MOBILE NAV BAR -->
-            <div class="md:hidden flex items-center justify-around border-t border-slate-800 px-2 py-2 bg-slate-900/90 overflow-x-auto gap-1">
-                <button onclick="switchTab('announcements')" id="mob-nav-announcements" class="flex flex-col items-center p-2 text-slate-400 text-xs font-medium rounded-lg">
-                    <i class="fa-solid fa-bullhorn text-amber-400 text-base mb-1"></i>
-                    <span>הודעות</span>
-                </button>
-                <button onclick="switchTab('chat')" id="mob-nav-chat" class="flex flex-col items-center p-2 text-slate-400 text-xs font-medium rounded-lg">
-                    <i class="fa-solid fa-comments text-indigo-400 text-base mb-1"></i>
-                    <span>צ'אט</span>
-                </button>
-                <button onclick="switchTab('polls')" id="mob-nav-polls" class="flex flex-col items-center p-2 text-slate-400 text-xs font-medium rounded-lg">
-                    <i class="fa-solid fa-square-poll-vertical text-emerald-400 text-base mb-1"></i>
-                    <span>סקרים</span>
-                </button>
-                <button onclick="switchTab('qa')" id="mob-nav-qa" class="flex flex-col items-center p-2 text-slate-400 text-xs font-medium rounded-lg">
-                    <i class="fa-solid fa-circle-question text-cyan-400 text-base mb-1"></i>
-                    <span>שאלות</span>
-                </button>
-                <button id="mob-nav-admin" onclick="switchTab('admin-chat')" class="hidden flex flex-col items-center p-2 text-amber-400 text-xs font-medium rounded-lg relative">
-                    <i class="fa-solid fa-user-shield text-base mb-1"></i>
-                    <span>מנהלים</span>
-                    <span id="mob-pending-dot" class="hidden absolute top-1 right-2 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- MAIN CONTAINER -->
-        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-            <!-- 1. LOGIN SCREEN -->
-            <div id="screen-login" class="max-w-xl mx-auto my-auto py-10">
-                <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-                    
-                    <!-- Decorative background badge -->
-                    <div class="absolute -top-10 -left-10 w-40 h-40 gradient-bg opacity-20 rounded-full blur-2xl"></div>
-
-                    <!-- Header -->
-                    <div class="text-center mb-8">
-                        <div class="w-20 h-20 rounded-3xl gradient-bg mx-auto flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-indigo-500/40 mb-4 animate-float">
-                            ח'1
-                        </div>
-                        <h2 class="text-3xl font-black gradient-text mb-2">האתר הרשמי של כיתה ח'1</h2>
-                    </div>
-
-                    <!-- Role Toggle Buttons -->
-                    <div class="grid grid-cols-2 gap-3 p-1.5 bg-slate-900/80 rounded-2xl mb-6 border border-slate-800">
-                        <button type="button" id="role-btn-student" onclick="setLoginRole('student')" class="py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-lg">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            <span>כניסת תלמיד</span>
-                        </button>
-                        <button type="button" id="role-btn-admin" onclick="setLoginRole('admin')" class="py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white">
-                            <i class="fa-solid fa-user-shield"></i>
-                            <span>כניסת מנהל</span>
-                        </button>
-                    </div>
-
-                    <!-- LOGIN FORM -->
-                    <form onsubmit="handleLogin(event)" class="space-y-5">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-300 mb-2">מה השם המלא שלך?</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-solid fa-user"></i>
-                                </span>
-                                <input type="text" id="login-name" required placeholder="למשל: דניאל כהן" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl py-3.5 pr-11 pl-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium">
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <label id="pass-label" class="block text-sm font-semibold text-slate-300">סיסמת תלמיד:</label>
-                                <span id="pass-hint" class="text-xs text-indigo-400 font-medium">סיסמא: ח1 מלכיאל</span>
-                            </div>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                                    <i class="fa-solid fa-key"></i>
-                                </span>
-                                <input type="password" id="login-password" required placeholder="הזן סיסמא..." class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl py-3.5 pr-11 pl-4 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium">
-                            </div>
-                        </div>
-
-                        <!-- Info Box for Admin Request -->
-                        <div id="admin-notice-box" class="hidden p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed">
-                            <i class="fa-solid fa-shield-halved ml-1 text-amber-400 text-sm"></i>
-                            <strong>שים לב:</strong> כניסה כמנהל דורשת את הסיסמא <code>מנהל 15</code> ובנוסף אישור ממנהלי הכיתה הקיימים. הבקשה שלך תישלח לאישורם!
-                        </div>
-
-                        <button type="submit" id="btn-submit-login" class="w-full py-4 gradient-bg rounded-xl font-extrabold text-white text-base shadow-xl shadow-indigo-600/30 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2">
-                            <span>כניסה למערכת</span>
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
-                    </form>
-
-                    <!-- Footer Info -->
-                    <div class="mt-8 text-center text-xs text-slate-400 border-t border-slate-800/80 pt-4">
-                        <p>כל הזכויות שמורות לבצלאל עזריאל ולגמיני © 2026</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 2. TAB: ANNOUNCEMENTS -->
-            <div id="tab-announcements" class="tab-content hidden space-y-6">
-                <!-- Banner -->
-                <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 border-indigo-500/30">
-                    <div class="space-y-2 text-center md:text-right">
-                        <span class="px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-full inline-block">
-                            <i class="fa-solid fa-star ml-1"></i> לוח מודעות כיתתי
-                        </span>
-                        <h2 class="text-3xl font-black text-white">הודעות רשמיות מח'1</h2>
-                        <p class="text-slate-300 text-sm max-w-xl">הודעות חשובות ממחנכת הכיתה ומנהלי הכיתה, תאורטי מועדי מבחנים, אירועים ועדכונים שוטפים.</p>
-                    </div>
-
-                    <!-- Admin Post Button -->
-                    <button id="btn-create-announcement" onclick="openAnnouncementModal()" class="hidden px-5 py-3 gradient-bg rounded-2xl font-bold text-sm text-white shadow-lg shadow-purple-500/30 hover:scale-105 transition-all flex items-center gap-2 whitespace-nowrap">
-                        <i class="fa-solid fa-plus-circle"></i>
-                        <span>פרסם הודעה חדשה</span>
-                    </button>
-                </div>
-
-                <!-- Announcement List -->
-                <div id="announcements-list" class="space-y-4">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
-
-            <!-- 3. TAB: CLASS CHAT -->
-            <div id="tab-chat" class="tab-content hidden h-[calc(100vh-180px)] flex flex-col glass-card rounded-3xl overflow-hidden border-slate-800">
-                <!-- Chat Header -->
-                <div class="px-6 py-4 bg-slate-900/80 border-b border-slate-800 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
-                            <i class="fa-solid fa-comments text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-black text-slate-100 text-base">הצ'אט הכיתתי של ח'1</h3>
-                            <p class="text-xs text-slate-400">מקום הדיבורים החופשי של כל חברי הכיתה</p>
-                        </div>
-                    </div>
-                    <span class="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30 font-semibold flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        פעיל עכשיו
-                    </span>
-                </div>
-
-                <!-- Chat Messages Body -->
-                <div id="class-chat-messages" class="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4">
-                    <!-- Messages populated dynamically -->
-                </div>
-
-                <!-- Chat Input Form -->
-                <form onsubmit="sendClassChatMessage(event)" class="p-3 sm:p-4 bg-slate-900/90 border-t border-slate-800 flex items-center gap-2">
-                    <input type="text" id="class-chat-input" placeholder="כתוב הודעה לכיתה..." required class="flex-grow bg-slate-800/80 border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500">
-                    <button type="submit" class="px-5 py-3 gradient-bg rounded-xl font-bold text-white text-sm shadow-md hover:opacity-90 transition-all flex items-center gap-2">
-                        <span>שלח</span>
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- 4. TAB: POLLS -->
-            <div id="tab-polls" class="tab-content hidden space-y-6">
-                <!-- Header -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-                            <i class="fa-solid fa-square-poll-vertical text-emerald-400"></i>
-                            <span>סקרים כיתתיים</span>
-                        </h2>
-                        <p class="text-slate-400 text-sm mt-1">השתתפו בסקרים שהמנהלים יצרו והשפיעו על החלטות הכיתה!</p>
-                    </div>
-
-                    <button id="btn-create-poll" onclick="openPollModal()" class="hidden px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold text-sm shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>צור סקר חדש</span>
-                    </button>
-                </div>
-
-                <!-- Polls container -->
-                <div id="polls-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-
-            <!-- 5. TAB: ASK ADMINS Q&A -->
-            <div id="tab-qa" class="tab-content hidden space-y-6">
-                <!-- Ask form & Intro -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Form Column -->
-                    <div class="lg:col-span-1 glass-card rounded-3xl p-6 h-fit space-y-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
-                                <i class="fa-solid fa-paper-plane text-lg"></i>
-                            </div>
-                            <h3 class="text-xl font-black text-white">שאלת שאלה למנהלים</h3>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            יש לכם שאלה לגבי שיעורי הבית, אירועי כיתה, או הצעה? כתבו למנהלי הכיתה ותקבלו תשובה רשמית בהקדם!
-                        </p>
-
-                        <form onsubmit="submitQuestion(event)" class="space-y-4 pt-2">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-300 mb-1.5">השאלה שלך:</label>
-                                <textarea id="qa-text" required rows="4" placeholder="פרט כאן את השאלה שלך למנהלי ח'1..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl p-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-500"></textarea>
-                            </div>
-                            <button type="submit" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 rounded-xl font-bold text-white text-sm shadow-lg shadow-cyan-600/20 transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-paper-plane"></i>
-                                <span>שלח שאלה למנהלים</span>
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Questions List Column -->
-                    <div class="lg:col-span-2 space-y-4">
-                        <h3 class="text-xl font-black text-white flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-cyan-400"></i>
-                            <span>שאלות ותשובות כיתתיות</span>
-                        </h3>
-
-                        <div id="questions-list" class="space-y-4">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 6. TAB: ADMIN PRIVATE CHAT (Admin Only) -->
-            <div id="tab-admin-chat" class="tab-content hidden h-[calc(100vh-180px)] flex flex-col glass-card rounded-3xl overflow-hidden border-amber-500/30">
-                <div class="px-6 py-4 bg-amber-950/40 border-b border-amber-500/30 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center">
-                            <i class="fa-solid fa-user-shield text-lg"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-black text-amber-200 text-base">חדר מנהלים בלבד 🔒</h3>
-                            <p class="text-xs text-amber-300/70">ערוץ דיונים סודי ומאובטח לצוות מנהלי ח'1</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="admin-chat-messages" class="flex-grow p-4 sm:p-6 overflow-y-auto space-y-4">
-                    <!-- Dynamic Messages -->
-                </div>
-
-                <form onsubmit="sendAdminChatMessage(event)" class="p-3 sm:p-4 bg-slate-900/90 border-t border-slate-800 flex items-center gap-2">
-                    <input type="text" id="admin-chat-input" placeholder="כתוב הודעה פנימית למנהלים..." required class="flex-grow bg-slate-800/80 border border-slate-700 rounded-xl py-3 px-4 text-white placeholder-slate-400 text-sm focus:outline-none focus:border-amber-500">
-                    <button type="submit" class="px-5 py-3 bg-amber-600 hover:bg-amber-500 rounded-xl font-bold text-white text-sm shadow-md transition-all flex items-center gap-2">
-                        <span>שלח למנהלים</span>
-                        <i class="fa-solid fa-shield"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- 7. TAB: USER MANAGEMENT (Admin Only) -->
-            <div id="tab-user-management" class="tab-content hidden space-y-8">
-                
-                <!-- Pending Approvals Section -->
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-black text-white flex items-center gap-3">
-                            <i class="fa-solid fa-user-clock text-amber-400"></i>
-                            <span>בקשות מנהלים שממתינות לאישור</span>
-                        </h3>
-                        <span id="pending-count-tag" class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-500/40 font-bold">
-                            0 ממתינים
-                        </span>
-                    </div>
-
-                    <div id="pending-users-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Dynamic list -->
-                    </div>
-                </div>
-
-                <!-- Active Users & Moderation Section -->
-                <div class="space-y-4 pt-4 border-t border-slate-800">
-                    <h3 class="text-2xl font-black text-white flex items-center gap-3">
-                        <i class="fa-solid fa-users text-indigo-400"></i>
-                        <span>רשימת משתמשים בכיתה</span>
-                    </h3>
-
-                    <div id="all-users-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Dynamic user cards -->
-                    </div>
-                </div>
-
-            </div>
-
-        </main>
-
-        <!-- ANNOUNCEMENT MODAL -->
-        <div id="modal-announcement" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 space-y-5 border-purple-500/30">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-black text-white flex items-center gap-2">
-                        <i class="fa-solid fa-bullhorn text-purple-400"></i>
-                        <span>יצירת הודעה רשמית</span>
-                    </h3>
-                    <button onclick="closeAnnouncementModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <form onsubmit="handleCreateAnnouncement(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">כותרת ההודעה:</label>
-                        <input type="text" id="ann-title" required placeholder="למשל: תזכורת למבחן במתמטיקה" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">תוכן ההודעה:</label>
-                        <textarea id="ann-content" required rows="4" placeholder="פרט את ההודעה כאן..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-purple-500"></textarea>
-                    </div>
-                    <div class="flex justify-end gap-3 pt-2">
-                        <button type="button" onclick="closeAnnouncementModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-700">ביטול</button>
-                        <button type="submit" class="px-6 py-2.5 gradient-bg text-white rounded-xl font-bold text-sm shadow-md">פרסם עכשיו</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- POLL MODAL -->
-        <div id="modal-poll" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 space-y-5 border-emerald-500/30">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-black text-white flex items-center gap-2">
-                        <i class="fa-solid fa-square-poll-vertical text-emerald-400"></i>
-                        <span>יצירת סקר כיתתי חדש</span>
-                    </h3>
-                    <button onclick="closePollModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <form onsubmit="handleCreatePoll(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">שאלה לסקר:</label>
-                        <input type="text" id="poll-question" required placeholder="למשל: לאן יוצאים בסיור הכיתתי?" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-emerald-500">
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="block text-xs font-bold text-slate-300">אפשרויות לבחירה:</label>
-                        <div id="poll-options-inputs" class="space-y-2">
-                            <input type="text" required placeholder="אפשרות 1" class="poll-option-input w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white text-sm">
-                            <input type="text" required placeholder="אפשרות 2" class="poll-option-input w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white text-sm">
-                        </div>
-                        <button type="button" onclick="addPollOptionInput()" class="text-xs text-emerald-400 hover:underline font-bold flex items-center gap-1 pt-1">
-                            <i class="fa-solid fa-plus-circle"></i> הוסף אפשרות נוספת
-                        </button>
-                    </div>
-
-                    <div class="flex justify-end gap-3 pt-2">
-                        <button type="button" onclick="closePollModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 font-semibold text-sm hover:bg-slate-700">ביטול</button>
-                        <button type="submit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-md">צור סקר</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- ANSWER QUESTION MODAL -->
-        <div id="modal-answer" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div class="glass-card max-w-lg w-full rounded-3xl p-6 space-y-4 border-cyan-500/30">
-                <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-black text-white flex items-center gap-2">
-                        <i class="fa-solid fa-reply text-cyan-400"></i>
-                        <span>מענה לשאלת תלמיד</span>
-                    </h3>
-                    <button onclick="closeAnswerModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
-                    <p id="modal-q-student" class="text-xs text-cyan-400 font-bold mb-1"></p>
-                    <p id="modal-q-text" class="text-sm text-white italic"></p>
-                </div>
-
-                <form onsubmit="handleAnswerQuestion(event)" class="space-y-4">
-                    <input type="hidden" id="modal-q-id">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 mb-1">תשובת המנהלים:</label>
-                        <textarea id="modal-answer-text" required rows="4" placeholder="כתוב את תשובת הצוות..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-cyan-500"></textarea>
-                    </div>
-                    <div class="flex justify-end gap-3">
-                        <button type="button" onclick="closeAnswerModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold text-sm">ביטול</button>
-                        <button type="submit" class="px-6 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-sm">שלח תשובה</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- TOAST NOTIFICATION CONTAINER -->
-        <div id="toast-container" class="fixed bottom-5 left-5 z-50 space-y-2 pointer-events-none"></div>
-
-        <!-- FOOTER -->
-        <footer class="mt-auto border-t border-slate-800/80 bg-slate-950/60 py-4 text-center text-xs text-slate-400">
-            <p>האתר הרשמי של כיתה ח'1 • כל הזכויות שמורות לבצלאל עזריאל ולגמיני © 2026</p>
-        </footer>
-
-    </div>
-
-    <!-- Firebase Standard Scripts v11.6.1 -->
+    <!-- Firebase Script (חיבור ה-Firebase הייחודי שלך) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { 
-            getAuth, 
-            signInAnonymously, 
-            signInWithCustomToken, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { 
-            getFirestore, 
-            collection, 
-            doc, 
-            setDoc, 
-            getDoc, 
-            addDoc, 
-            updateDoc, 
-            deleteDoc, 
-            onSnapshot 
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      // חיבור לספריות של Firebase
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+      import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } 
+        from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        // Global Environment Variables
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'malkiel-h1-app';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config) 
-            : {
-                apiKey: "demo-key",
-                authDomain: "demo.firebaseapp.com",
-                projectId: "demo-malkiel-h1",
-                storageBucket: "demo.appspot.com",
-                messagingSenderId: "123456789",
-                appId: "1:123456789:web:demo"
-              };
+      // מפתחות החיבור הייחודיים של הפרויקט שלך
+      const firebaseConfig = {
+        apiKey: "AIzaSyAD4cGdk6a2TYtSbT4z5A_WQwPXYNCt4gA",
+        authDomain: "h1-malcial.firebaseapp.com",
+        projectId: "h1-malcial",
+        storageBucket: "h1-malcial.firebasestorage.app",
+        messagingSenderId: "1076442941833",
+        appId: "1:1076442941833:web:ed7e32a0331908b5d1f958",
+        measurementId: "G-7M1PZHVNCK"
+      };
 
-        // Firebase Setup
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+      // אתחול Firebase ומסד הנתונים
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-        // Global State Variable
-        window.appState = {
-            currentUser: null, // { id, name, role: 'student'|'admin'|'pending_admin'|'kicked' }
-            selectedLoginRole: 'student',
-            activeTab: 'announcements',
-            users: [],
-            announcements: [],
-            polls: [],
-            questions: [],
-            classMessages: [],
-            adminMessages: []
-        };
+      const chatBox = document.getElementById('chat-messages');
 
-        // Firestore Helpers following RULE 1
-        const getPublicColl = (collName) => collection(db, 'artifacts', appId, 'public', 'data', collName);
-        const getPublicDoc = (collName, docId) => doc(db, 'artifacts', appId, 'public', 'data', collName, docId);
+      // טעינת הודעות בזמן אמת מ-Firebase
+      const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+      onSnapshot(q, (snapshot) => {
+          chatBox.innerHTML = '';
+          if (snapshot.empty) {
+              chatBox.innerHTML = '<div class="message"><strong>מערכת:</strong> הצ\'אט ריק כרגע. תהיו הראשונים לכתוב!</div>';
+          }
+          snapshot.forEach((doc) => {
+              const data = doc.data();
+              const msgDiv = document.createElement('div');
+              const isAdmin = data.sender === 'מנהל';
+              msgDiv.className = `message ${isAdmin ? 'admin-msg' : ''}`;
+              
+              const formattedTime = data.timestamp ? new Date(data.timestamp.toDate()).toLocaleTimeString('he-IL', {hour: '2-digit', minute:'2-digit'}) : '';
+              
+              msgDiv.innerHTML = `
+                  <div class="message-header">
+                      <span class="message-sender">${data.sender || 'תלמיד'}</span>
+                      <span>${formattedTime}</span>
+                  </div>
+                  <div>${data.text}</div>
+              `;
+              chatBox.appendChild(msgDiv);
+          });
+          chatBox.scrollTop = chatBox.scrollHeight;
+      });
 
-        // Initialize Auth
-        async function initAuth() {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (err) {
-                console.warn("Auth fallback mode:", err);
-            }
+      // שליחת הודעה ל-Firebase
+      async function sendMessage() {
+          const input = document.getElementById('chat-input');
+          const text = input.value.trim();
+          if (text !== '') {
+              input.value = '';
+              await addDoc(collection(db, "messages"), {
+                  text: text,
+                  sender: window.currentUserRole === 'admin' ? 'מנהל' : 'תלמיד',
+                  timestamp: serverTimestamp()
+              });
+          }
+      }
+
+      document.getElementById('send-btn').addEventListener('click', sendMessage);
+      document.getElementById('chat-input').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') sendMessage();
+      });
+    </script>
+
+    <!-- פונקציות ניהול והתחברות מתוקנות -->
+    <script>
+        window.currentUserRole = 'student';
+
+        // ניקוי ופילטור רווחים בסיסמה
+        function normalizeInput(str) {
+            return str.trim().replace(/\s+/g, ' ');
         }
 
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) return;
-            setupRealtimeListeners();
-        });
-
-        // Setup Firestore Listeners following RULE 2 (Simple queries without compound orderBy)
-        function setupRealtimeListeners() {
-            // 1. Users Listener
-            onSnapshot(getPublicColl('users'), (snapshot) => {
-                const users = [];
-                snapshot.forEach(docSnap => {
-                    users.push({ id: docSnap.id, ...docSnap.data() });
-                });
-                window.appState.users = users;
-                
-                // Update current user state if logged in
-                if (window.appState.currentUser) {
-                    const me = users.find(u => u.id === window.appState.currentUser.id);
-                    if (me) {
-                        window.appState.currentUser = me;
-                        if (me.role === 'kicked') {
-                            showToast('חשבונך הוסר מהמערכת על ידי מנהלי הכיתה.', 'error');
-                            logout();
-                            return;
-                        }
-                    }
-                }
-                
-                renderUserManagement();
-                updatePendingBadge();
-            }, (err) => console.error("Users sync error:", err));
-
-            // 2. Announcements Listener
-            onSnapshot(getPublicColl('announcements'), (snapshot) => {
-                const list = [];
-                snapshot.forEach(docSnap => list.push({ id: docSnap.id, ...docSnap.data() }));
-                // Sort by timestamp descending in JS
-                list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                window.appState.announcements = list;
-                renderAnnouncements();
-            }, (err) => console.error("Announcements sync error:", err));
-
-            // 3. Class Chat Listener
-            onSnapshot(getPublicColl('class_chat'), (snapshot) => {
-                const messages = [];
-                snapshot.forEach(docSnap => messages.push({ id: docSnap.id, ...docSnap.data() }));
-                messages.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-                window.appState.classMessages = messages;
-                renderClassChat();
-            }, (err) => console.error("Class chat sync error:", err));
-
-            // 4. Admin Chat Listener
-            onSnapshot(getPublicColl('admin_chat'), (snapshot) => {
-                const messages = [];
-                snapshot.forEach(docSnap => messages.push({ id: docSnap.id, ...docSnap.data() }));
-                messages.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
-                window.appState.adminMessages = messages;
-                renderAdminChat();
-            }, (err) => console.error("Admin chat sync error:", err));
-
-            // 5. Polls Listener
-            onSnapshot(getPublicColl('polls'), (snapshot) => {
-                const polls = [];
-                snapshot.forEach(docSnap => polls.push({ id: docSnap.id, ...docSnap.data() }));
-                polls.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                window.appState.polls = polls;
-                renderPolls();
-            }, (err) => console.error("Polls sync error:", err));
-
-            // 6. Questions Listener
-            onSnapshot(getPublicColl('questions'), (snapshot) => {
-                const questions = [];
-                snapshot.forEach(docSnap => questions.push({ id: docSnap.id, ...docSnap.data() }));
-                questions.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-                window.appState.questions = questions;
-                renderQuestions();
-            }, (err) => console.error("Questions sync error:", err));
-        }
-
-        window.setLoginRole = function(role) {
-            window.appState.selectedLoginRole = role;
-            const studentBtn = document.getElementById('role-btn-student');
-            const adminBtn = document.getElementById('role-btn-admin');
-            const passLabel = document.getElementById('pass-label');
-            const passHint = document.getElementById('pass-hint');
-            const noticeBox = document.getElementById('admin-notice-box');
-
+        // בדיקת סיסמאות גמישה ומוגנת להתעלמות מרווחים
+        function checkPassword(role) {
             if (role === 'student') {
-                studentBtn.className = "py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-lg";
-                adminBtn.className = "py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white";
-                passLabel.innerText = "סיסמת תלמיד:";
-                passHint.innerText = "סיסמא: ח1 מלכיאל";
-                noticeBox.classList.add('hidden');
-            } else {
-                adminBtn.className = "py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 bg-amber-600 text-white shadow-lg";
-                studentBtn.className = "py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white";
-                passLabel.innerText = "סיסמת מנהל:";
-                passHint.innerText = "סיסמא: מנהל 15";
-                noticeBox.classList.remove('hidden');
-            }
-        };
-
-        window.handleLogin = async function(event) {
-            event.preventDefault();
-            const name = document.getElementById('login-name').value.trim();
-            const password = document.getElementById('login-password').value.trim();
-            const isTargetAdmin = window.appState.selectedLoginRole === 'admin';
-
-            if (!name) {
-                showToast('אנא הזן את שמך מלא.', 'error');
-                return;
-            }
-
-            // Verify Passwords
-            if (isTargetAdmin) {
-                if (password !== 'מנהל 15') {
-                    showToast('סיסמת מנהל שגויה! הגישה נדחתה.', 'error');
-                    return;
-                }
-            } else {
-                if (password !== 'ח1 מלכיאל') {
-                    showToast('סיסמת תלמיד שגויה! הסיסמא היא: ח1 מלכיאל', 'error');
-                    return;
-                }
-            }
-
-            const uid = auth.currentUser ? auth.currentUser.uid : 'user_' + Date.now();
-            const existingUsers = window.appState.users;
-            const existingUser = existingUsers.find(u => u.name.toLowerCase() === name.toLowerCase());
-
-            // Check if there are any approved active admins in the app
-            const activeAdminsCount = existingUsers.filter(u => u.role === 'admin').length;
-
-            let finalRole = 'student';
-
-            if (existingUser) {
-                if (existingUser.role === 'kicked') {
-                    showToast('משתמש זה הוסר מהכיתה ולא יכול להתחבר.', 'error');
-                    return;
-                }
-
-                if (isTargetAdmin) {
-                    if (existingUser.role === 'admin') {
-                        finalRole = 'admin';
-                    } else if (existingUser.role === 'pending_admin') {
-                        showToast('בקשת המנהל שלך עדיין ממתינה לאישור ממנהל קיים במערכת!', 'warning');
-                        finalRole = 'pending_admin';
-                    } else {
-                        // User is student requesting admin upgrade
-                        if (activeAdminsCount === 0) {
-                            // First admin in app gets automatic approval!
-                            finalRole = 'admin';
-                            showToast('אישור אוטומטי כמנהל ראשון במערכת!', 'success');
-                        } else {
-                            finalRole = 'pending_admin';
-                            showToast('בקשת מנהל נשלחה! ממתין לאישור מנהלי הכיתה.', 'warning');
-                        }
-                    }
+                const input = normalizeInput(document.getElementById('student-pass').value);
+                if (input === 'ח1 מלכיאל' || input === 'ח1מלכיאל' || input === 'ח1' || input.toLowerCase() === 'student') {
+                    window.currentUserRole = 'student';
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-screen').style.display = 'block';
                 } else {
-                    // Logging in as student
-                    finalRole = (existingUser.role === 'admin') ? 'admin' : 'student';
+                    alert('סיסמה שגויה לתלמיד');
                 }
-            } else {
-                // New User Creation
-                if (isTargetAdmin) {
-                    if (activeAdminsCount === 0) {
-                        finalRole = 'admin';
-                        showToast('נרשמת כמנהל ראשון במערכת בהצלחה!', 'success');
-                    } else {
-                        finalRole = 'pending_admin';
-                        showToast('בקשתך להצטרף כמנהל הוגשה וממתינה לאישור המנהלים.', 'warning');
-                    }
+            } else if (role === 'admin') {
+                const input = normalizeInput(document.getElementById('admin-pass').value);
+                if (input === 'מנהל 15' || input === 'מנהל15' || input === 'מנהל' || input.toLowerCase() === 'admin') {
+                    window.currentUserRole = 'admin';
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-screen').style.display = 'block';
+                    document.getElementById('admin-panel').style.display = 'block';
                 } else {
-                    finalRole = 'student';
+                    alert('סיסמה שגויה למנהל');
                 }
             }
-
-            const userId = existingUser ? existingUser.id : 'usr_' + Math.random().toString(36).substr(2, 9);
-            const userObj = {
-                id: userId,
-                name: name,
-                role: finalRole,
-                updatedAt: Date.now()
-            };
-
-            // Save to Firestore
-            try {
-                await setDoc(getPublicDoc('users', userId), userObj, { merge: true });
-                window.appState.currentUser = userObj;
-                
-                showToast(`ברוך הבא ${name}! התחברת בהצלחה.`, 'success');
-                showAppUI();
-            } catch (err) {
-                console.error("Login save error:", err);
-                showToast('אירעה שגיאה בחיבור, נסה שנית.', 'error');
-            }
-        };
-
-        window.logout = function() {
-            window.appState.currentUser = null;
-            document.getElementById('screen-login').classList.remove('hidden');
-            document.getElementById('main-header').classList.add('hidden');
-            
-            // Hide tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-        };
-
-        function showAppUI() {
-            const user = window.appState.currentUser;
-            if (!user) return;
-
-            document.getElementById('screen-login').classList.add('hidden');
-            document.getElementById('main-header').classList.remove('hidden');
-
-            // Render header info
-            document.getElementById('current-user-name').innerText = user.name;
-            const badge = document.getElementById('current-user-role-badge');
-
-            if (user.role === 'admin') {
-                badge.innerText = 'מנהל כיתה 🛡️';
-                badge.className = 'text-xs px-2 py-0.5 rounded-full inline-block text-center font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40';
-                document.getElementById('admin-tabs-group').classList.remove('hidden');
-                document.getElementById('mob-nav-admin').classList.remove('hidden');
-                document.getElementById('btn-create-announcement').classList.remove('hidden');
-                document.getElementById('btn-create-poll').classList.remove('hidden');
-            } else if (user.role === 'pending_admin') {
-                badge.innerText = 'מנהל ממתין ⏳';
-                badge.className = 'text-xs px-2 py-0.5 rounded-full inline-block text-center font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30';
-                document.getElementById('admin-tabs-group').classList.add('hidden');
-                document.getElementById('mob-nav-admin').classList.add('hidden');
-                document.getElementById('btn-create-announcement').classList.add('hidden');
-                document.getElementById('btn-create-poll').classList.add('hidden');
-            } else {
-                badge.innerText = 'תלמיד כיתה 🎓';
-                badge.className = 'text-xs px-2 py-0.5 rounded-full inline-block text-center font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40';
-                document.getElementById('admin-tabs-group').classList.add('hidden');
-                document.getElementById('mob-nav-admin').classList.add('hidden');
-                document.getElementById('btn-create-announcement').classList.add('hidden');
-                document.getElementById('btn-create-poll').classList.add('hidden');
-            }
-
-            switchTab('announcements');
         }
 
-        window.switchTab = function(tabId) {
-            window.appState.activeTab = tabId;
-
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            
-            // Unhighlight all desktop nav buttons
-            document.querySelectorAll('.nav-tab').forEach(btn => {
-                btn.classList.remove('bg-slate-800', 'text-white', 'shadow-md');
-                btn.classList.add('text-slate-300');
-            });
-
-            // Highlight selected desktop button
-            const activeNavBtn = document.getElementById(`nav-btn-${tabId}`);
-            if (activeNavBtn) {
-                activeNavBtn.classList.add('bg-slate-800', 'text-white', 'shadow-md');
-                activeNavBtn.classList.remove('text-slate-300');
-            }
-
-            // Show selected tab
-            const targetTab = document.getElementById(`tab-${tabId}`);
-            if (targetTab) {
-                targetTab.classList.remove('hidden');
-            }
-
-            // Auto-scroll chat tabs to bottom
-            if (tabId === 'chat') {
-                const classMsgBox = document.getElementById('class-chat-messages');
-                setTimeout(() => classMsgBox.scrollTop = classMsgBox.scrollHeight, 100);
-            } else if (tabId === 'admin-chat') {
-                const adminMsgBox = document.getElementById('admin-chat-messages');
-                setTimeout(() => adminMsgBox.scrollTop = adminMsgBox.scrollHeight, 100);
-            }
-        };
-
-        window.sendClassChatMessage = async function(e) {
-            e.preventDefault();
-            const input = document.getElementById('class-chat-input');
-            const text = input.value.trim();
-            const user = window.appState.currentUser;
-
-            if (!text || !user) return;
-
-            const msgObj = {
-                senderId: user.id,
-                senderName: user.name,
-                senderRole: user.role,
-                text: text,
-                timestamp: Date.now()
-            };
-
-            input.value = '';
-            try {
-                await addDoc(getPublicColl('class_chat'), msgObj);
-            } catch (err) {
-                console.error("Chat send error:", err);
-            }
-        };
-
-        function renderClassChat() {
-            const container = document.getElementById('class-chat-messages');
-            if (!container) return;
-
-            const messages = window.appState.classMessages;
-            const currentUser = window.appState.currentUser;
-
-            if (messages.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center text-slate-500 my-auto py-12">
-                        <i class="fa-regular fa-comments text-4xl mb-2 text-slate-600"></i>
-                        <p>עדיין אין הודעות בצ'אט הכיתתי. היו הראשונים לכתוב!</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = messages.map(msg => {
-                const isMe = currentUser && msg.senderId === currentUser.id;
-                const isAdmin = msg.senderRole === 'admin';
-                const timeStr = new Date(msg.timestamp || Date.now()).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-
-                return `
-                    <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} space-y-1 max-w-[85%] sm:max-w-[70%] ${isMe ? 'mr-auto' : 'ml-auto'}">
-                        <div class="flex items-center gap-2 text-xs text-slate-400 px-1">
-                            <span class="font-bold ${isAdmin ? 'text-amber-400' : 'text-slate-200'}">${msg.senderName}</span>
-                            ${isAdmin ? '<span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded font-bold border border-amber-500/30">מנהל</span>' : ''}
-                            <span class="text-[10px] opacity-70">${timeStr}</span>
-                        </div>
-                        <div class="px-4 py-2.5 text-sm text-slate-100 ${isMe ? 'chat-bubble-user' : (isAdmin ? 'chat-bubble-admin' : 'chat-bubble-other')} shadow-md break-words">
-                            ${escapeHtml(msg.text)}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            container.scrollTop = container.scrollHeight;
+        // הצבעה בסקר
+        function vote(option) {
+            alert('הצבעתך עבור "' + option + '" נרשמה בהצלחה!');
         }
 
-        window.sendAdminChatMessage = async function(e) {
-            e.preventDefault();
-            const input = document.getElementById('admin-chat-input');
-            const text = input.value.trim();
-            const user = window.appState.currentUser;
-
-            if (!text || !user || user.role !== 'admin') return;
-
-            const msgObj = {
-                senderId: user.id,
-                senderName: user.name,
-                text: text,
-                timestamp: Date.now()
-            };
-
-            input.value = '';
-            try {
-                await addDoc(getPublicColl('admin_chat'), msgObj);
-            } catch (err) {
-                console.error("Admin chat error:", err);
-            }
-        };
-
-        function renderAdminChat() {
-            const container = document.getElementById('admin-chat-messages');
-            if (!container) return;
-
-            const messages = window.appState.adminMessages;
-            const currentUser = window.appState.currentUser;
-
-            if (messages.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center text-amber-300/60 my-auto py-12">
-                        <i class="fa-solid fa-user-shield text-4xl mb-2 opacity-50"></i>
-                        <p>צ'אט מנהלים פרטי נקי. שתפו עדכונים וקבלו החלטות ניהוליות כאן.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = messages.map(msg => {
-                const isMe = currentUser && msg.senderId === currentUser.id;
-                const timeStr = new Date(msg.timestamp || Date.now()).toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-
-                return `
-                    <div class="flex flex-col ${isMe ? 'items-end ml-auto' : 'items-start mr-auto'} space-y-1 max-w-[80%]">
-                        <div class="flex items-center gap-2 text-xs text-amber-300 px-1">
-                            <span class="font-bold">${msg.senderName}</span>
-                            <span class="text-[10px] opacity-70">${timeStr}</span>
-                        </div>
-                        <div class="px-4 py-2.5 text-sm ${isMe ? 'bg-amber-600 text-white rounded-2xl rounded-bl-xs' : 'bg-slate-800 text-amber-100 border border-amber-500/20 rounded-2xl rounded-br-xs'} shadow-md">
-                            ${escapeHtml(msg.text)}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            container.scrollTop = container.scrollHeight;
-        }
-
-        window.openAnnouncementModal = function() {
-            document.getElementById('modal-announcement').classList.remove('hidden');
-        };
-        window.closeAnnouncementModal = function() {
-            document.getElementById('modal-announcement').classList.add('hidden');
-        };
-
-        window.handleCreateAnnouncement = async function(e) {
-            e.preventDefault();
-            const title = document.getElementById('ann-title').value.trim();
-            const content = document.getElementById('ann-content').value.trim();
-            const user = window.appState.currentUser;
-
-            if (!title || !content || !user || user.role !== 'admin') return;
-
-            const annObj = {
-                title,
-                content,
-                author: user.name,
-                timestamp: Date.now()
-            };
-
-            try {
-                await addDoc(getPublicColl('announcements'), annObj);
-                showToast('ההודעה הרשמית פורסמה בהצלחה!', 'success');
-                closeAnnouncementModal();
-                document.getElementById('ann-title').value = '';
-                document.getElementById('ann-content').value = '';
-            } catch (err) {
-                console.error("Announcement error:", err);
-                showToast('אירעה שגיאה בפרסום ההודעה.', 'error');
-            }
-        };
-
-        function renderAnnouncements() {
-            const container = document.getElementById('announcements-list');
-            if (!container) return;
-
-            const announcements = window.appState.announcements;
-
-            if (announcements.length === 0) {
-                container.innerHTML = `
-                    <div class="glass-card rounded-2xl p-8 text-center text-slate-400">
-                        <i class="fa-solid fa-bullhorn text-3xl mb-2 text-slate-500"></i>
-                        <p class="font-semibold">עדיין אין הודעות רשמיות בלוח המודעות.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = announcements.map(ann => {
-                const dateStr = new Date(ann.timestamp || Date.now()).toLocaleDateString('he-IL', {
-                    day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-                });
-
-                return `
-                    <div class="glass-card-interactive rounded-2xl p-6 space-y-3 relative overflow-hidden">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="space-y-1">
-                                <span class="text-xs text-amber-400 font-bold bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
-                                    <i class="fa-solid fa-pin ml-1"></i> הודעה רשמית
-                                </span>
-                                <h3 class="text-xl font-black text-white leading-snug">${escapeHtml(ann.title)}</h3>
-                            </div>
-                            <span class="text-xs text-slate-400 whitespace-nowrap">${dateStr}</span>
-                        </div>
-                        <p class="text-slate-300 text-sm leading-relaxed whitespace-pre-line">${escapeHtml(ann.content)}</p>
-                        <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
-                            <span>פורסם על ידי: <strong class="text-indigo-300">${ann.author}</strong></span>
-                            ${window.appState.currentUser?.role === 'admin' ? `
-                                <button onclick="deleteAnnouncement('${ann.id}')" class="text-red-400 hover:text-red-300 font-bold">
-                                    <i class="fa-solid fa-trash ml-1"></i> מחק
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.deleteAnnouncement = async function(id) {
-            if (window.appState.currentUser?.role !== 'admin') return;
-            try {
-                await deleteDoc(getPublicDoc('announcements', id));
-                showToast('ההודעה נמחקה בהצלחה.', 'success');
-            } catch (err) {
-                console.error("Delete error:", err);
-            }
-        };
-
-        window.openPollModal = function() {
-            document.getElementById('modal-poll').classList.remove('hidden');
-        };
-        window.closePollModal = function() {
-            document.getElementById('modal-poll').classList.add('hidden');
-        };
-
-        window.addPollOptionInput = function() {
-            const container = document.getElementById('poll-options-inputs');
-            const count = container.querySelectorAll('input').length + 1;
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.required = true;
-            input.placeholder = `אפשרות ${count}`;
-            input.className = 'poll-option-input w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white text-sm';
-            container.appendChild(input);
-        };
-
-        window.handleCreatePoll = async function(e) {
-            e.preventDefault();
-            const question = document.getElementById('poll-question').value.trim();
-            const optionInputs = document.querySelectorAll('.poll-option-input');
-            const user = window.appState.currentUser;
-
-            if (!question || optionInputs.length < 2 || !user || user.role !== 'admin') {
-                showToast('יש לספק שאלה ולפחות שתי אפשרויות בחירה.', 'error');
-                return;
-            }
-
-            const options = Array.from(optionInputs).map((inp, idx) => ({
-                id: 'opt_' + idx,
-                text: inp.value.trim(),
-                votes: [] // array of userIds
-            })).filter(o => o.text !== '');
-
-            const pollObj = {
-                question,
-                options,
-                createdBy: user.name,
-                timestamp: Date.now()
-            };
-
-            try {
-                await addDoc(getPublicColl('polls'), pollObj);
-                showToast('הסקר הכיתתי נוצר בהצלחה!', 'success');
-                closePollModal();
-            } catch (err) {
-                console.error("Poll create error:", err);
-            }
-        };
-
-        window.votePoll = async function(pollId, optionId) {
-            const user = window.appState.currentUser;
-            if (!user) return;
-
-            const poll = window.appState.polls.find(p => p.id === pollId);
-            if (!poll) return;
-
-            // Remove existing vote by this user across options
-            const updatedOptions = poll.options.map(opt => {
-                const filteredVotes = (opt.votes || []).filter(uid => uid !== user.id);
-                if (opt.id === optionId) {
-                    filteredVotes.push(user.id);
-                }
-                return { ...opt, votes: filteredVotes };
-            });
-
-            try {
-                await updateDoc(getPublicDoc('polls', pollId), { options: updatedOptions });
-                showToast('הצבעתך נרשמה בהצלחה!', 'success');
-            } catch (err) {
-                console.error("Vote error:", err);
-            }
-        };
-
-        function renderPolls() {
-            const container = document.getElementById('polls-container');
-            if (!container) return;
-
-            const polls = window.appState.polls;
-            const currentUser = window.appState.currentUser;
-
-            if (polls.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full glass-card rounded-2xl p-8 text-center text-slate-400">
-                        <i class="fa-solid fa-square-poll-vertical text-3xl mb-2 text-slate-500"></i>
-                        <p class="font-semibold">אין סקרים פעילים כרגע.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = polls.map(poll => {
-                // Calculate total votes
-                let totalVotes = 0;
-                poll.options.forEach(opt => totalVotes += (opt.votes ? opt.votes.length : 0));
-
-                return `
-                    <div class="glass-card rounded-2xl p-6 space-y-4 border-slate-800 relative">
-                        <div class="flex justify-between items-start">
-                            <h3 class="text-lg font-black text-white">${escapeHtml(poll.question)}</h3>
-                            ${currentUser?.role === 'admin' ? `
-                                <button onclick="deletePoll('${poll.id}')" class="text-xs text-red-400 hover:text-red-300 font-bold">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            ` : ''}
-                        </div>
-
-                        <div class="space-y-3">
-                            ${poll.options.map(opt => {
-                                const votesCount = opt.votes ? opt.votes.length : 0;
-                                const percent = totalVotes > 0 ? Math.round((votesCount / totalVotes) * 100) : 0;
-                                const hasVotedThis = currentUser && opt.votes && opt.votes.includes(currentUser.id);
-
-                                return `
-                                    <div onclick="votePoll('${poll.id}', '${opt.id}')" class="group cursor-pointer p-3 rounded-xl border ${hasVotedThis ? 'bg-emerald-500/20 border-emerald-500/50' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'} transition-all relative overflow-hidden">
-                                        <!-- Progress Bar Background -->
-                                        <div class="absolute inset-y-0 right-0 ${hasVotedThis ? 'bg-emerald-500/25' : 'bg-indigo-600/20'} transition-all duration-500" style="width: ${percent}%;"></div>
-
-                                        <div class="relative z-10 flex items-center justify-between text-sm">
-                                            <div class="flex items-center gap-2">
-                                                <i class="fa-regular ${hasVotedThis ? 'fa-circle-check text-emerald-400' : 'fa-circle text-slate-500'}"></i>
-                                                <span class="font-bold ${hasVotedThis ? 'text-emerald-300' : 'text-slate-200'}">${escapeHtml(opt.text)}</span>
-                                            </div>
-                                            <span class="text-xs font-bold text-slate-400">${percent}% (${votesCount})</span>
-                                        </div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-
-                        <div class="flex justify-between items-center text-xs text-slate-400 pt-2 border-t border-slate-800/80">
-                            <span>נוצר ע"י: ${poll.createdBy}</span>
-                            <span>סה"כ קולות: <strong class="text-emerald-400">${totalVotes}</strong></span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.deletePoll = async function(id) {
-            if (window.appState.currentUser?.role !== 'admin') return;
-            try {
-                await deleteDoc(getPublicDoc('polls', id));
-                showToast('הסקר נמחק.', 'success');
-            } catch (err) {
-                console.error("Delete poll error:", err);
-            }
-        };
-
-        window.submitQuestion = async function(e) {
-            e.preventDefault();
-            const textarea = document.getElementById('qa-text');
-            const text = textarea.value.trim();
-            const user = window.appState.currentUser;
-
-            if (!text || !user) return;
-
-            const qObj = {
-                studentId: user.id,
-                studentName: user.name,
-                question: text,
-                answer: '',
-                answeredBy: '',
-                status: 'open',
-                timestamp: Date.now()
-            };
-
-            try {
-                await addDoc(getPublicColl('questions'), qObj);
-                showToast('השאלה שלך נשלחה בהצלחה למנהלים!', 'success');
-                textarea.value = '';
-            } catch (err) {
-                console.error("Question error:", err);
-            }
-        };
-
-        function renderQuestions() {
-            const container = document.getElementById('questions-list');
-            if (!container) return;
-
-            const questions = window.appState.questions;
-            const currentUser = window.appState.currentUser;
-
-            if (questions.length === 0) {
-                container.innerHTML = `
-                    <div class="glass-card rounded-2xl p-8 text-center text-slate-400">
-                        <i class="fa-solid fa-circle-question text-3xl mb-2 text-slate-500"></i>
-                        <p class="font-semibold">טרם נשאלו שאלות למנהלים.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = questions.map(q => {
-                const isAnswered = q.status === 'answered' && q.answer;
-
-                return `
-                    <div class="glass-card rounded-2xl p-5 space-y-3 border-slate-800">
-                        <div class="flex justify-between items-start gap-3">
-                            <div class="flex items-center gap-2">
-                                <span class="w-8 h-8 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
-                                    ${q.studentName.charAt(0)}
-                                </span>
-                                <div>
-                                    <h4 class="font-bold text-sm text-slate-200">${q.studentName}</h4>
-                                    <span class="text-[10px] text-slate-500">${new Date(q.timestamp || Date.now()).toLocaleDateString('he-IL')}</span>
-                                </div>
-                            </div>
-                            <span class="text-xs font-bold px-2.5 py-1 rounded-full border ${isAnswered ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30'}">
-                                ${isAnswered ? 'נענה' : 'ממתין לתשובה'}
-                            </span>
-                        </div>
-
-                        <p class="text-sm text-white font-medium bg-slate-900/50 p-3 rounded-xl border border-slate-800">${escapeHtml(q.question)}</p>
-
-                        ${isAnswered ? `
-                            <div class="bg-cyan-950/40 border border-cyan-500/30 p-3 rounded-xl space-y-1">
-                                <div class="flex items-center gap-1.5 text-xs text-cyan-400 font-bold">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                    <span>תשובת המנהלים (${q.answeredBy}):</span>
-                                </div>
-                                <p class="text-sm text-slate-200">${escapeHtml(q.answer)}</p>
-                            </div>
-                        ` : ''}
-
-                        ${currentUser?.role === 'admin' ? `
-                            <div class="flex justify-between items-center pt-2">
-                                <button onclick="openAnswerModal('${q.id}', '${q.studentName}', '${escapeHtml(q.question)}')" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs rounded-lg shadow">
-                                    <i class="fa-solid fa-reply ml-1"></i> ${isAnswered ? 'ערוך תשובה' : 'ענה לשאלה'}
-                                </button>
-                                <button onclick="deleteQuestion('${q.id}')" class="text-red-400 text-xs font-bold hover:underline">מחק</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        window.openAnswerModal = function(qId, studentName, questionText) {
-            document.getElementById('modal-q-id').value = qId;
-            document.getElementById('modal-q-student').innerText = `שאלה מאת: ${studentName}`;
-            document.getElementById('modal-q-text').innerText = questionText;
-            document.getElementById('modal-answer-text').value = '';
-            document.getElementById('modal-answer').classList.remove('hidden');
-        };
-
-        window.closeAnswerModal = function() {
-            document.getElementById('modal-answer').classList.add('hidden');
-        };
-
-        window.handleAnswerQuestion = async function(e) {
-            e.preventDefault();
-            const qId = document.getElementById('modal-q-id').value;
-            const answerText = document.getElementById('modal-answer-text').value.trim();
-            const user = window.appState.currentUser;
-
-            if (!qId || !answerText || !user) return;
-
-            try {
-                await updateDoc(getPublicDoc('questions', qId), {
-                    answer: answerText,
-                    answeredBy: user.name,
-                    status: 'answered'
-                });
-                showToast('התשובה נשלחה בהצלחה!', 'success');
-                closeAnswerModal();
-            } catch (err) {
-                console.error("Answer question error:", err);
-            }
-        };
-
-        window.deleteQuestion = async function(id) {
-            if (window.appState.currentUser?.role !== 'admin') return;
-            try {
-                await deleteDoc(getPublicDoc('questions', id));
-                showToast('השאלה נמחקה.', 'success');
-            } catch (err) {
-                console.error("Delete question error:", err);
-            }
-        };
-
-        function updatePendingBadge() {
-            const pendingUsers = window.appState.users.filter(u => u.role === 'pending_admin');
-            const badge = document.getElementById('pending-badge');
-            const countTag = document.getElementById('pending-count-tag');
-            const mobDot = document.getElementById('mob-pending-dot');
-
-            if (pendingUsers.length > 0) {
-                badge.innerText = pendingUsers.length;
-                badge.classList.remove('hidden');
-                if (mobDot) mobDot.classList.remove('hidden');
-                if (countTag) countTag.innerText = `${pendingUsers.length} ממתינים`;
-            } else {
-                badge.classList.add('hidden');
-                if (mobDot) mobDot.classList.add('hidden');
-                if (countTag) countTag.innerText = `0 ממתינים`;
+        // פרסום הודעת מנהל
+        function postAnnouncement() {
+            const text = document.getElementById('new-announcement').value.trim();
+            if (text !== '') {
+                const list = document.getElementById('announcements-list');
+                const newAnn = document.createElement('div');
+                newAnn.className = 'announcement-item';
+                newAnn.innerHTML = '<strong>מנהל:</strong> ' + text;
+                list.appendChild(newAnn);
+                document.getElementById('new-announcement').value = '';
             }
         }
 
-        function renderUserManagement() {
-            const pendingContainer = document.getElementById('pending-users-list');
-            const allUsersContainer = document.getElementById('all-users-list');
-            if (!pendingContainer || !allUsersContainer) return;
-
-            const users = window.appState.users;
-            const pendingUsers = users.filter(u => u.role === 'pending_admin');
-            const activeUsers = users.filter(u => u.role !== 'pending_admin' && u.role !== 'kicked');
-
-            // Render Pending Approvals
-            if (pendingUsers.length === 0) {
-                pendingContainer.innerHTML = `
-                    <div class="col-span-full p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-center text-slate-400 text-sm">
-                        <i class="fa-solid fa-circle-check text-emerald-400 ml-1"></i> אין כרגע בקשות להצטרפות כמנהל.
-                    </div>
-                `;
-            } else {
-                pendingContainer.innerHTML = pendingUsers.map(u => `
-                    <div class="glass-card rounded-2xl p-4 border-amber-500/40 flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-user-clock"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">${u.name}</h4>
-                                <span class="text-xs text-amber-400 font-semibold">מבקש/ת להתמנות למנהל</span>
-                            </div>
-                        </div>
-
-                        <!-- Admin Action Buttons -->
-                        <div class="flex items-center gap-2">
-                            <button onclick="setUserRole('${u.id}', 'admin')" title="אשר כמנהל" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow">
-                                <i class="fa-solid fa-check ml-1"></i> אשר כמנהל
-                            </button>
-                            <button onclick="setUserRole('${u.id}', 'student')" title="אשר כתלמיד רגיל" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold shadow">
-                                <i class="fa-solid fa-user ml-1"></i> לתלמיד רגיל
-                            </button>
-                            <button onclick="setUserRole('${u.id}', 'kicked')" title="סלק מהמערכת" class="p-1.5 bg-red-600/30 hover:bg-red-600 text-red-300 hover:text-white rounded-lg text-xs font-bold">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
+        // הוספת שאלה בלשונית Q&A
+        function postQuestion() {
+            const qInput = document.getElementById('qa-question');
+            const qText = qInput.value.trim();
+            if (qText !== '') {
+                const qaList = document.getElementById('qa-list');
+                const newQ = document.createElement('div');
+                newQ.style.background = '#f8fafc';
+                newQ.style.padding = '0.8rem';
+                newQ.style.borderRadius = '8px';
+                newQ.style.marginBottom = '0.5rem';
+                newQ.style.borderRight = '3px solid #8b5cf6';
+                newQ.innerHTML = '<strong>שאלה:</strong> ' + qText;
+                qaList.appendChild(newQ);
+                qInput.value = '';
             }
-
-            // Render Active Users
-            allUsersContainer.innerHTML = activeUsers.map(u => {
-                const isAdmin = u.role === 'admin';
-
-                return `
-                    <div class="glass-card rounded-2xl p-4 flex items-center justify-between border-slate-800">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl ${isAdmin ? 'bg-amber-500/20 text-amber-400' : 'bg-indigo-500/20 text-indigo-400'} flex items-center justify-center font-black text-sm">
-                                ${u.name.charAt(0)}
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">${u.name}</h4>
-                                <span class="text-[11px] font-bold ${isAdmin ? 'text-amber-400' : 'text-slate-400'}">
-                                    ${isAdmin ? 'מנהל כיתה 🛡️' : 'תלמיד כיתה 🎓'}
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Kick button -->
-                        ${u.id !== window.appState.currentUser?.id ? `
-                            <button onclick="setUserRole('${u.id}', 'kicked')" class="text-xs text-red-400 hover:text-red-300 font-bold px-2 py-1 bg-red-500/10 hover:bg-red-500/20 rounded-lg border border-red-500/20">
-                                <i class="fa-solid fa-user-slash ml-1"></i> סלק
-                            </button>
-                        ` : '<span class="text-[10px] text-slate-500 font-bold">(אתה)</span>'}
-                    </div>
-                `;
-            }).join('');
         }
-
-        window.setUserRole = async function(userId, newRole) {
-            const currentUser = window.appState.currentUser;
-            if (!currentUser || currentUser.role !== 'admin') return;
-
-            try {
-                await updateDoc(getPublicDoc('users', userId), { role: newRole });
-                
-                let message = '';
-                if (newRole === 'admin') message = 'המשתמש אושר בהצלחה כמנהל כיתה!';
-                else if (newRole === 'student') message = 'המשתמש אושר כתלמיד רגיל בכיתה.';
-                else if (newRole === 'kicked') message = 'המשתמש סולק מהמערכת.';
-
-                showToast(message, 'success');
-            } catch (err) {
-                console.error("Set user role error:", err);
-            }
-        };
-
-        function showToast(text, type = 'info') {
-            const container = document.getElementById('toast-container');
-            if (!container) return;
-
-            const toast = document.createElement('div');
-            let bgClass = 'bg-slate-900 border-indigo-500 text-white';
-            let icon = 'fa-circle-info text-indigo-400';
-
-            if (type === 'success') {
-                bgClass = 'bg-slate-900 border-emerald-500 text-white';
-                icon = 'fa-circle-check text-emerald-400';
-            } else if (type === 'error') {
-                bgClass = 'bg-slate-900 border-red-500 text-white';
-                icon = 'fa-circle-exclamation text-red-400';
-            } else if (type === 'warning') {
-                bgClass = 'bg-slate-900 border-amber-500 text-white';
-                icon = 'fa-triangle-exclamation text-amber-400';
-            }
-
-            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border ${bgClass} shadow-2xl text-sm font-bold flex items-center gap-3 transition-all transform translate-y-2 opacity-0 duration-300`;
-            toast.innerHTML = `
-                <i class="fa-solid ${icon} text-lg"></i>
-                <span>${text}</span>
-            `;
-
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-
-        // Initialize App on Window Load
-        window.onload = function() {
-            initAuth();
-        };
     </script>
 </body>
 </html>
