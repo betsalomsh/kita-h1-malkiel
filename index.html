@@ -369,6 +369,33 @@
             border: 2px solid #16161d;
         }
 
+        /* כפתור יציאה בסרגל הניווט */
+        .exit-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 3px solid #16161d;
+            background: var(--r);
+            color: #fff;
+            font-weight: 800;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 3px 3px 0 #16161d;
+            transition: 0.12s;
+        }
+
+        .exit-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 #16161d;
+        }
+
+        .exit-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #16161d;
+        }
+
         /* ==========================================================================
            6. מכלים כלליים
            ========================================================================== */
@@ -997,7 +1024,7 @@
          ===================================================================== -->
     <div id="top-bar">
         <div class="info">
-            <span><i class="fa-solid fa-school"></i> בית ספר מלכיאל</span>
+            <span><i class="fa-solid fa-school"></i> בית ספר יד ששון</span>
             <span><i class="fa-solid fa-users"></i> כיתה ח'1</span>
             <span><i class="fa-solid fa-calendar"></i> שנת הלימודים תשפ"ו</span>
         </div>
@@ -1040,6 +1067,7 @@
         <button class="nav-btn" data-tab="users"><i class="fa-solid fa-user-group"></i> תלמידים שנכנסו</button>
         <button class="nav-btn admin-only" data-tab="adminchat"><i class="fa-solid fa-user-shield"></i> צ'אט מנהלים</button>
         <button class="nav-btn admin-only" data-tab="admin"><i class="fa-solid fa-gear"></i> ניהול ובקרה</button>
+        <button class="exit-btn" id="logout-nav"><i class="fa-solid fa-right-from-bracket"></i> יציאה</button>
     </nav>
 
     <!-- =====================================================================
@@ -1518,7 +1546,9 @@
             location.reload();
         }
 
+        // כפתורי יציאה (סרגל עליון + סרגל ניווט)
         $('logout-btn').onclick = () => logout();
+        $('logout-nav').onclick = () => { if (confirm('לצאת מהמערכת?')) logout(); };
 
         window.addEventListener('beforeunload', () => {
             if (me && firebaseReady) {
@@ -1542,3 +1572,537 @@
         // ------------------------------------------------------------------
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.onclick = () => {
+                document.querySelectorAll('.nav-btn').forEach(x => x.classList.remove('on'));
+                document.querySelectorAll('.page').forEach(x => x.classList.remove('on'));
+                btn.classList.add('on');
+                $('p-' + btn.dataset.tab).classList.add('on');
+                if (btn.dataset.tab === 'chat') $('chat-dot').style.display = 'none';
+                if (btn.dataset.tab === 'polls') $('poll-dot').style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+        });
+
+        const activeTab = () => document.querySelector('.nav-btn.on')?.dataset.tab;
+
+        // ------------------------------------------------------------------
+        // תלמידים שנכנסו + סילוק
+        // ------------------------------------------------------------------
+        function listenUsers() {
+            unsubs.push(onSnapshot(collection(db, 'users'), snap => {
+                const list = [];
+                let online = 0;
+
+                snap.forEach(d => {
+                    const u = d.data();
+                    u.id = d.id;
+                    const lastSeen = u.lastSeen && u.lastSeen.toMillis ? u.lastSeen.toMillis() : Date.now();
+                    u.live = u.online && !u.kicked && (Date.now() - lastSeen < 100000);
+                    if (u.live) online++;
+                    list.push(u);
+                });
+
+                list.sort((a, b) => (b.live - a.live) || a.name.localeCompare(b.name, 'he'));
+                lastUsers = list;
+                $('st-online').textContent = online;
+                renderUsers();
+                renderKicked();
+            }));
+        }
+
+        function renderUsers() {
+            const term = clean($('user-search').value).toLowerCase();
+            const filtered = lastUsers.filter(u => !term || u.name.toLowerCase().includes(term));
+            $('users-count').textContent = lastUsers.length + ' נכנסו';
+
+            $('users-list').innerHTML = filtered.map(u => {
+                const isAdminUser = u.role === 'admin';
+                let action = '';
+
+                if (me.role === 'admin' && !isAdminUser && u.id !== me.id) {
+                    action = u.kicked
+                        ? `<button class="btn ghost sm" data-unkick="${esc(u.id)}"><i class="fa-solid fa-rotate-left"></i> החזר</button>`
+                        : `<button class="btn red sm" data-kick="${esc(u.id)}" data-nm="${esc(u.name)}"><i class="fa-solid fa-user-slash"></i> סלק</button>`;
+                }
+
+                let state;
+                if (u.kicked) state = 'סולק';
+                else if (u.live) state = '<span class="pulse"></span> מחובר';
+                else state = '<span class="pulse off"></span> לא מחובר';
+
+                return `
+                    <div class="u ${u.kicked ? 'kicked' : ''}">
+                        <div class="avatar">${esc(u.name.charAt(0))}</div>
+                        <div class="info">
+                            <b>${esc(u.name)}</b>
+                            <small>${state}</small>
+                        </div>
+                        ${isAdminUser ? '<span class="badge admin">מנהל</span>' : ''}
+                        ${u.kicked ? '<span class="badge off">סולק</span>' : ''}
+                        ${action}
+                    </div>`;
+            }).join('') || '<div class="empty">לא נמצאו תלמידים</div>';
+        }
+
+        function renderKicked() {
+            const kicked = lastUsers.filter(u => u.kicked);
+            $('kicked-list').innerHTML = kicked.map(u => `
+                <div class="u" style="margin-bottom: 0.8rem;">
+                    <div class="avatar">${esc(u.name.charAt(0))}</div>
+                    <div class="info"><b>${esc(u.name)}</b></div>
+                    <button class="btn ghost sm" data-unkick="${esc(u.id)}"><i class="fa-solid fa-rotate-left"></i> החזר למערכת</button>
+                </div>`).join('') || '<div class="empty">אין תלמידים מסולקים</div>';
+        }
+
+        $('user-search').addEventListener('input', renderUsers);
+
+        async function kickHandler(e) {
+            const kickBtn = e.target.closest('[data-kick]');
+            const unkickBtn = e.target.closest('[data-unkick]');
+
+            if (kickBtn) {
+                const ok = confirm(`לסלק את "${kickBtn.dataset.nm}" מהמערכת? הוא לא יוכל להיכנס עד שתחזיר אותו.`);
+                if (ok) {
+                    await updateDoc(doc(db, 'users', kickBtn.dataset.kick), { kicked: true, online: false });
+                    toast('התלמיד סולק');
+                }
+            }
+
+            if (unkickBtn) {
+                await updateDoc(doc(db, 'users', unkickBtn.dataset.unkick), { kicked: false });
+                toast('התלמיד הוחזר למערכת');
+            }
+        }
+
+        $('users-list').addEventListener('click', kickHandler);
+        $('kicked-list').addEventListener('click', kickHandler);
+
+        // ------------------------------------------------------------------
+        // לוח הודעות
+        // ------------------------------------------------------------------
+        function listenAnnouncements() {
+            const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
+            unsubs.push(onSnapshot(q, snap => {
+                const arr = [];
+                snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+
+                // הודעות מוצמדות קודם
+                arr.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+                $('st-ann').textContent = arr.length;
+
+                $('ann-list').innerHTML = arr.map(a => `
+                    <div class="ann ${a.pinned ? 'pin' : ''}">
+                        <div class="meta">
+                            ${a.pinned ? '📌 ' : ''}${esc(a.by || 'מנהל')} · ${dateOf(a.createdAt)} ${timeOf(a.createdAt)}
+                        </div>
+                        <div>${esc(a.text).replace(/\n/g, '<br>')}</div>
+                        ${me.role === 'admin'
+                            ? `<button class="btn ghost sm x" data-delann="${a.id}"><i class="fa-solid fa-trash"></i></button>`
+                            : ''}
+                    </div>`).join('') || '<div class="empty">אין הודעות כרגע</div>';
+            }));
+        }
+
+        $('ann-send').onclick = async () => {
+            const text = $('ann-text').value.trim();
+            if (!text) return;
+            await addDoc(collection(db, 'announcements'), {
+                text,
+                pinned: $('ann-pin').checked,
+                by: me.name,
+                createdAt: serverTimestamp()
+            });
+            $('ann-text').value = '';
+            $('ann-pin').checked = false;
+            toast('ההודעה פורסמה');
+        };
+
+        $('ann-list').addEventListener('click', async e => {
+            const btn = e.target.closest('[data-delann]');
+            if (btn && confirm('למחוק את ההודעה?')) {
+                await deleteDoc(doc(db, 'announcements', btn.dataset.delann));
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // אירועים ומבחנים קרובים (עם ספירה לאחור)
+        // ------------------------------------------------------------------
+        let eventsData = [];
+
+        function listenEvents() {
+            unsubs.push(onSnapshot(collection(db, 'events'), snap => {
+                eventsData = [];
+                snap.forEach(d => eventsData.push({ id: d.id, ...d.data() }));
+                eventsData.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+                renderEvents();
+            }));
+        }
+
+        function daysLeft(dateStr) {
+            const target = new Date(dateStr + 'T00:00:00');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return Math.round((target - today) / 86400000);
+        }
+
+        function countdownLabel(days) {
+            if (days < 0) return { text: 'עבר', cls: 'off' };
+            if (days === 0) return { text: 'היום!', cls: 'admin' };
+            if (days === 1) return { text: 'מחר', cls: 'warn' };
+            if (days <= 7) return { text: `בעוד ${days} ימים`, cls: 'warn' };
+            return { text: `בעוד ${days} ימים`, cls: '' };
+        }
+
+        function renderEvents() {
+            const upcoming = eventsData.filter(ev => daysLeft(ev.date) >= -1);
+
+            $('events-list').innerHTML = upcoming.map(ev => {
+                const days = daysLeft(ev.date);
+                const label = countdownLabel(days);
+                const dateText = new Date(ev.date + 'T00:00:00').toLocaleDateString('he-IL', {
+                    weekday: 'long', day: 'numeric', month: 'long'
+                });
+                return `
+                    <div class="event ${days < 0 ? 'past' : ''}">
+                        <div class="ev-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="ev-info"><b>${esc(ev.title)}</b><br><small>${dateText}</small></div>
+                        <span class="badge ${label.cls}">${label.text}</span>
+                    </div>`;
+            }).join('') || '<div class="empty">אין אירועים קרובים</div>';
+
+            // רשימת ניהול אירועים
+            $('admin-events').innerHTML = eventsData.map(ev => `
+                <div class="event">
+                    <div class="ev-info"><b>${esc(ev.title)}</b> <small>· ${esc(ev.date)}</small></div>
+                    <button class="btn red sm" data-delev="${ev.id}"><i class="fa-solid fa-trash"></i></button>
+                </div>`).join('');
+        }
+
+        $('ev-send').onclick = async () => {
+            const title = $('ev-title').value.trim();
+            const date = $('ev-date').value;
+            if (!title || !date) return toast('צריך שם אירוע ותאריך');
+            await addDoc(collection(db, 'events'), { title, date, createdAt: serverTimestamp() });
+            $('ev-title').value = '';
+            $('ev-date').value = '';
+            toast('האירוע נוסף');
+        };
+
+        $('admin-events').addEventListener('click', async e => {
+            const btn = e.target.closest('[data-delev]');
+            if (btn && confirm('למחוק את האירוע?')) {
+                await deleteDoc(doc(db, 'events', btn.dataset.delev));
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // סקרים
+        // ------------------------------------------------------------------
+        let firstPollLoad = true;
+        let knownPolls = new Set();
+
+        function listenPolls() {
+            const q = query(collection(db, 'polls'), orderBy('createdAt', 'desc'));
+            unsubs.push(onSnapshot(q, snap => {
+                const arr = [];
+                let open = 0;
+
+                snap.forEach(d => {
+                    arr.push({ id: d.id, ...d.data() });
+                    if (!d.data().closed) open++;
+                });
+
+                $('st-polls').textContent = open;
+
+                // נקודת התראה על סקר חדש
+                if (!firstPollLoad && activeTab() !== 'polls' && arr.some(p => !knownPolls.has(p.id))) {
+                    $('poll-dot').style.display = 'inline';
+                    $('poll-dot').textContent = 'חדש';
+                }
+                knownPolls = new Set(arr.map(p => p.id));
+                firstPollLoad = false;
+
+                $('poll-list').innerHTML = arr.map(p => {
+                    const votes = p.votes || {};
+                    const total = Object.keys(votes).length;
+                    const mine = votes[me.id];
+                    const counts = p.options.map((_, i) => Object.values(votes).filter(v => v === i).length);
+
+                    const optionsHtml = p.options.map((opt, i) => {
+                        const pct = total ? Math.round(counts[i] / total * 100) : 0;
+                        return `
+                            <div class="opt ${mine === i ? 'mine' : ''}" data-vote="${p.id}" data-i="${i}">
+                                <div class="bar" style="width: ${pct}%"></div>
+                                <span>${mine === i ? '<i class="fa-solid fa-circle-check" style="color: var(--g);"></i> ' : ''}${esc(opt)}</span>
+                                <span><b>${pct}%</b> · ${counts[i]}</span>
+                            </div>`;
+                    }).join('');
+
+                    return `
+                        <div class="card poll ${p.closed ? 'closed' : ''}">
+                            <h4>
+                                ${esc(p.question)}
+                                ${p.closed ? '<span class="badge off">סגור</span>' : '<span class="badge ok">פתוח</span>'}
+                            </h4>
+                            ${optionsHtml}
+                            <div class="poll-foot">
+                                <span>${total} הצבעות · נוצר ע"י ${esc(p.by || 'מנהל')}</span>
+                                <span class="admin-only">
+                                    <button class="btn ghost sm" data-toggle="${p.id}" data-closed="${p.closed ? 1 : 0}">${p.closed ? 'פתח מחדש' : 'סגור סקר'}</button>
+                                    <button class="btn red sm" data-delpoll="${p.id}"><i class="fa-solid fa-trash"></i></button>
+                                </span>
+                            </div>
+                        </div>`;
+                }).join('') || '<div class="empty">אין סקרים כרגע</div>';
+            }));
+        }
+
+        $('poll-list').addEventListener('click', async e => {
+            // הצבעה
+            const vote = e.target.closest('[data-vote]');
+            if (vote) {
+                const ref = doc(db, 'polls', vote.dataset.vote);
+                const snap = await getDoc(ref);
+                if (!snap.exists() || snap.data().closed) { toast('הסקר סגור'); return; }
+                await updateDoc(ref, { ['votes.' + me.id]: Number(vote.dataset.i) });
+                toast('ההצבעה נקלטה ✔');
+                return;
+            }
+
+            // סגירה / פתיחה
+            const toggle = e.target.closest('[data-toggle]');
+            if (toggle) {
+                await updateDoc(doc(db, 'polls', toggle.dataset.toggle), { closed: toggle.dataset.closed !== '1' });
+            }
+
+            // מחיקה
+            const del = e.target.closest('[data-delpoll]');
+            if (del && confirm('למחוק את הסקר לצמיתות?')) {
+                await deleteDoc(doc(db, 'polls', del.dataset.delpoll));
+            }
+        });
+
+        $('poll-add').onclick = () => {
+            const box = $('poll-opts');
+            if (box.children.length >= 8) return toast('מקסימום 8 אפשרויות');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.maxLength = 60;
+            input.placeholder = 'אפשרות ' + (box.children.length + 1);
+            box.appendChild(input);
+        };
+
+        $('poll-send').onclick = async () => {
+            const question = $('poll-q').value.trim();
+            const options = [...$('poll-opts').querySelectorAll('input')]
+                .map(i => i.value.trim())
+                .filter(Boolean);
+
+            if (!question || options.length < 2) return toast('צריך שאלה ולפחות 2 אפשרויות');
+
+            await addDoc(collection(db, 'polls'), {
+                question,
+                options,
+                votes: {},
+                closed: false,
+                by: me.name,
+                createdAt: serverTimestamp()
+            });
+
+            $('poll-q').value = '';
+            $('poll-opts').querySelectorAll('input').forEach(i => i.value = '');
+            toast('הסקר נשלח לכיתה 📊');
+        };
+
+        // ------------------------------------------------------------------
+        // שו"ת - שאלות ותשובות
+        // ------------------------------------------------------------------
+        function listenQuestions() {
+            const q = query(collection(db, 'questions'), orderBy('createdAt', 'desc'));
+            unsubs.push(onSnapshot(q, snap => {
+                const arr = [];
+                let waiting = 0;
+
+                snap.forEach(d => {
+                    const data = d.data();
+                    arr.push({ id: d.id, ...data });
+                    if (!data.answer) waiting++;
+                });
+
+                $('st-qa').textContent = waiting;
+
+                $('qa-list').innerHTML = arr.map(item => {
+                    const answerBlock = item.answer
+                        ? `<div class="qa-a"><b><i class="fa-solid fa-circle-check" style="color: var(--g);"></i> תשובת הצוות${item.answeredBy ? ' (' + esc(item.answeredBy) + ')' : ''}:</b><br>${esc(item.answer).replace(/\n/g, '<br>')}</div>`
+                        : '<div class="qa-a waiting"><i class="fa-regular fa-clock"></i> ממתין לתשובה מהצוות...</div>';
+
+                    const adminBlock = me.role === 'admin' ? `
+                        <div class="qa-admin">
+                            <textarea placeholder="כתוב תשובה...">${esc(item.answer || '')}</textarea>
+                            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                                <button class="btn green sm" data-answer="${item.id}"><i class="fa-solid fa-reply"></i> ${item.answer ? 'עדכן תשובה' : 'פרסם תשובה'}</button>
+                                <button class="btn red sm" data-delqa="${item.id}"><i class="fa-solid fa-trash"></i> מחק שאלה</button>
+                            </div>
+                        </div>` : '';
+
+                    return `
+                        <div class="qa-item" data-qa-id="${item.id}">
+                            <div class="qa-q">
+                                <span>${esc(item.text)}</span>
+                                <small>${esc(item.by || 'תלמיד')} · ${dateOf(item.createdAt)}</small>
+                            </div>
+                            ${answerBlock}
+                            ${adminBlock}
+                        </div>`;
+                }).join('') || '<div class="empty">אין שאלות עדיין</div>';
+            }));
+        }
+
+        $('qa-send').onclick = async () => {
+            const text = $('qa-input').value.trim();
+            if (!text) return;
+            await addDoc(collection(db, 'questions'), {
+                text,
+                by: me.name,
+                uid: me.id,
+                answer: '',
+                createdAt: serverTimestamp()
+            });
+            $('qa-input').value = '';
+            toast('השאלה נשלחה לצוות');
+        };
+
+        $('qa-list').addEventListener('click', async e => {
+            const answerBtn = e.target.closest('[data-answer]');
+            if (answerBtn) {
+                const box = answerBtn.closest('.qa-item').querySelector('textarea');
+                const answer = box.value.trim();
+                if (!answer) return toast('כתוב תשובה קודם');
+                await updateDoc(doc(db, 'questions', answerBtn.dataset.answer), {
+                    answer,
+                    answeredBy: me.name
+                });
+                toast('התשובה פורסמה');
+            }
+
+            const delBtn = e.target.closest('[data-delqa]');
+            if (delBtn && confirm('למחוק את השאלה?')) {
+                await deleteDoc(doc(db, 'questions', delBtn.dataset.delqa));
+            }
+        });
+
+        // ------------------------------------------------------------------
+        // צ'אטים (כיתתי + מנהלים)
+        // ------------------------------------------------------------------
+        function setupChat(coll, name) {
+            const box = $('msgs-' + name);
+            const input = $('in-' + name);
+            let firstLoad = true;
+
+            const q = query(collection(db, coll), orderBy('timestamp', 'asc'));
+            unsubs.push(onSnapshot(q, snap => {
+                box.innerHTML = '';
+
+                if (snap.empty) {
+                    box.innerHTML = '<div class="empty">אין הודעות עדיין - תהיו הראשונים 🙂</div>';
+                }
+
+                snap.forEach(d => {
+                    const m = d.data();
+                    const sender = m.name || m.sender || 'תלמיד';
+                    const isAdminMsg = m.role === 'admin' || m.sender === 'מנהל';
+                    const mine = m.uid ? m.uid === me.id : false;
+
+                    const el = document.createElement('div');
+                    el.className = 'msg' + (mine ? ' me' : '');
+                    el.innerHTML = `
+                        <div class="h">
+                            <b>${esc(sender)}</b>
+                            ${isAdminMsg ? '<span class="badge admin">מנהל</span>' : ''}
+                            <span>${timeOf(m.timestamp)}</span>
+                            ${me.role === 'admin' && name === 'chat'
+                                ? `<button class="del" data-del="${d.id}"><i class="fa-solid fa-trash"></i></button>`
+                                : ''}
+                        </div>
+                        ${esc(m.text)}`;
+                    box.appendChild(el);
+                });
+
+                box.scrollTop = box.scrollHeight;
+
+                if (!firstLoad && name === 'chat' && activeTab() !== 'chat') {
+                    $('chat-dot').style.display = 'inline';
+                    $('chat-dot').textContent = '•';
+                }
+                firstLoad = false;
+            }));
+
+            async function send() {
+                const text = input.value.trim();
+                if (!text) return;
+                input.value = '';
+                await addDoc(collection(db, coll), {
+                    text,
+                    name: me.name,
+                    uid: me.id,
+                    role: me.role,
+                    timestamp: serverTimestamp()
+                });
+            }
+
+            $('go-' + name).onclick = send;
+            input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+
+            // מחיקת הודעה (מנהל)
+            box.addEventListener('click', async e => {
+                const btn = e.target.closest('[data-del]');
+                if (btn && confirm('למחוק את ההודעה?')) {
+                    await deleteDoc(doc(db, coll, btn.dataset.del));
+                }
+            });
+        }
+
+        // ------------------------------------------------------------------
+        // כלי ניהול
+        // ------------------------------------------------------------------
+        $('tool-status').onclick = () => {
+            const total = lastUsers.length;
+            const online = lastUsers.filter(u => u.live).length;
+            const kicked = lastUsers.filter(u => u.kicked).length;
+            alert(
+                'סטטוס מסד נתונים: ' + (navigator.onLine ? 'מחובר ✔' : 'אין חיבור ✖') + '\n' +
+                'סה"כ נכנסו: ' + total + '\n' +
+                'מחוברים עכשיו: ' + online + '\n' +
+                'מסולקים: ' + kicked
+            );
+        };
+
+        $('tool-export').onclick = () => {
+            const rows = [['שם', 'תפקיד', 'סטטוס']];
+            lastUsers.forEach(u => {
+                rows.push([
+                    u.name,
+                    u.role === 'admin' ? 'מנהל' : 'תלמיד',
+                    u.kicked ? 'סולק' : (u.live ? 'מחובר' : 'לא מחובר')
+                ]);
+            });
+
+            const csv = '\uFEFF' + rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'class-report.csv';
+            link.click();
+            toast('הדוח הורד');
+        };
+
+        $('tool-clear').onclick = async () => {
+            if (!confirm('למחוק את כל הודעות הצ\'אט הכיתתי? לא ניתן לבטל.')) return;
+            const snap = await getDocs(collection(db, 'messages'));
+            await Promise.all(snap.docs.map(d => deleteDoc(d.ref)));
+            toast('הצ\'אט נוקה (' + snap.size + ' הודעות)');
+        };
+
+        updateConnection();
+    </script>
+</body>
+</html>
