@@ -3,39 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>האתר הרשמי של כיתה ח1 מלכיאל - הפורטל המרכזי</title>
+    <title>האתר הרשמי של כיתה ח'1 - בית ספר יד ששון</title>
 
     <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* ==========================================================================
-           1. משתני עיצוב - סגנון "פופ" צבעוני עם מסגרות עבות
+           1. משתני עיצוב - עיצוב נקי ומודרני (בהיר / כהה)
            ========================================================================== */
         :root {
-            --bg: #fff4dc;
-            --ink: #16161d;
+            --bg: #f3f5fa;
             --card: #ffffff;
-            --soft: #fff9ec;
-            --muted: #5b5b6b;
-            --y: #ffd23f;
-            --p: #ff6b9d;
-            --b: #4cc9f0;
-            --g: #6bd968;
-            --r: #ff5a5f;
-            --v: #9b5de5;
-            --o: #ff9f43;
-            --radius: 18px;
-            --radius-sm: 12px;
+            --soft: #f7f9fd;
+            --ink: #1b2336;
+            --muted: #6b7490;
+            --line: #e3e7f1;
+            --primary: #2f5bea;
+            --primary-dark: #1f43bd;
+            --primary-soft: #e8eefe;
+            --ok: #16a34a;
+            --ok-soft: #e3f6ea;
+            --bad: #e5484d;
+            --bad-soft: #fdeaea;
+            --warn: #f5a524;
+            --warn-soft: #fff3dc;
+            --violet: #7c4dff;
+            --violet-soft: #efe9ff;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 2px 10px rgba(27, 35, 54, 0.06);
+            --shadow-lg: 0 14px 40px rgba(27, 35, 54, 0.12);
         }
 
         [data-theme="dark"] {
-            --bg: #14141f;
-            --ink: #f4f1ea;
-            --card: #1f1f2e;
-            --soft: #262638;
-            --muted: #a3a3b8;
+            --bg: #0f1424;
+            --card: #181f33;
+            --soft: #1d2540;
+            --ink: #e8ecf8;
+            --muted: #95a0c0;
+            --line: #2a3350;
+            --primary: #5b82ff;
+            --primary-dark: #4468e6;
+            --primary-soft: #222d52;
+            --ok-soft: #14301f;
+            --bad-soft: #3a1d22;
+            --warn-soft: #3a2e14;
+            --violet-soft: #2a2250;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+            --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.5);
         }
 
         /* ==========================================================================
@@ -51,21 +68,8 @@
         body {
             min-height: 100vh;
             color: var(--ink);
-            line-height: 1.6;
-            background-color: var(--bg);
-            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
-            background-size: 28px 28px;
-            background-position: 0 0;
-        }
-
-        /* טשטוש עדין של הנקודות כדי שלא יפריעו לקריאה */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
             background: var(--bg);
-            opacity: 0.93;
-            z-index: -1;
+            line-height: 1.6;
         }
 
         button {
@@ -78,24 +82,25 @@
             width: 100%;
             padding: 0.8rem 1rem;
             border-radius: var(--radius-sm);
-            border: 3px solid var(--ink);
-            background: var(--card);
+            border: 1.5px solid var(--line);
+            background: var(--soft);
             color: var(--ink);
             outline: none;
             font-size: 1rem;
-            transition: 0.15s;
+            transition: 0.2s;
         }
 
         input:focus, textarea:focus {
-            box-shadow: 4px 4px 0 var(--b);
-            transform: translate(-1px, -1px);
+            border-color: var(--primary);
+            background: var(--card);
+            box-shadow: 0 0 0 4px rgba(47, 91, 234, 0.15);
         }
 
         input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             padding: 0;
-            accent-color: var(--p);
+            accent-color: var(--primary);
         }
 
         [data-theme="dark"] input[type="date"] {
@@ -120,42 +125,46 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            padding: 0.7rem 1.25rem;
+            padding: 0.7rem 1.3rem;
             border-radius: var(--radius-sm);
-            border: 3px solid var(--ink);
-            background: var(--y);
-            color: #16161d;
-            font-weight: 700;
-            box-shadow: 4px 4px 0 var(--ink);
-            transition: 0.12s;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            transition: 0.18s;
+            box-shadow: 0 2px 6px rgba(47, 91, 234, 0.25);
         }
 
         .btn:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0 var(--ink);
+            background: var(--primary-dark);
+            transform: translateY(-1px);
         }
 
-        .btn:active {
-            transform: translate(3px, 3px);
-            box-shadow: 1px 1px 0 var(--ink);
-        }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .btn.block { width: 100%; }
-        .btn.red { background: var(--r); color: #fff; }
-        .btn.green { background: var(--g); }
-        .btn.blue { background: var(--b); }
-        .btn.pink { background: var(--p); }
-        .btn.ghost { background: var(--card); color: var(--ink); }
+        .btn.blue { background: var(--primary); }
+        .btn.pink { background: var(--violet); box-shadow: 0 2px 6px rgba(124, 77, 255, 0.25); }
+        .btn.pink:hover { background: #6a3de8; }
+        .btn.green { background: var(--ok); box-shadow: 0 2px 6px rgba(22, 163, 74, 0.25); }
+        .btn.green:hover { background: #12843c; }
+        .btn.red { background: var(--bad); box-shadow: 0 2px 6px rgba(229, 72, 77, 0.25); }
+        .btn.red:hover { background: #c93a3f; }
 
-        .btn.sm {
-            padding: 0.3rem 0.75rem;
-            font-size: 0.85rem;
-            border-width: 2px;
-            box-shadow: 3px 3px 0 var(--ink);
-            border-radius: 10px;
+        .btn.ghost {
+            background: var(--card);
+            color: var(--ink);
+            border: 1.5px solid var(--line);
+            box-shadow: none;
         }
 
-        .btn.sm:hover { box-shadow: 4px 4px 0 var(--ink); }
+        .btn.ghost:hover { background: var(--soft); border-color: var(--primary); }
+
+        .btn.sm {
+            padding: 0.35rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
 
         /* ==========================================================================
            4. סרגל עליון + באנר
@@ -167,9 +176,8 @@
             gap: 1rem;
             padding: 0.55rem 1.5rem;
             font-size: 0.88rem;
-            background: #16161d;
-            color: #f4f1ea;
-            border-bottom: 3px solid var(--ink);
+            background: #12192e;
+            color: #dfe5f7;
             flex-wrap: wrap;
         }
 
@@ -193,109 +201,72 @@
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
-            background: var(--g);
-            box-shadow: 0 0 0 0 rgba(107, 217, 104, 0.8);
+            background: #34d399;
+            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
             animation: pulse 2s infinite;
         }
 
         .status-dot.off {
-            background: var(--r);
+            background: var(--bad);
             animation: none;
         }
 
         @keyframes pulse {
-            70% { box-shadow: 0 0 0 8px rgba(107, 217, 104, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(107, 217, 104, 0); }
+            70% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
         }
 
         #user-chip {
             display: none;
             align-items: center;
             gap: 0.6rem;
-            background: #2b2b3a;
-            border: 2px solid #f4f1ea;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
             padding: 0.2rem 0.4rem 0.2rem 0.9rem;
         }
 
         #user-chip .avatar {
-            width: 30px;
-            height: 30px;
-            font-size: 0.9rem;
-            border-color: #f4f1ea;
+            width: 28px;
+            height: 28px;
+            font-size: 0.85rem;
         }
 
         #user-chip .btn.sm {
-            padding: 0.15rem 0.6rem;
+            padding: 0.15rem 0.65rem;
             box-shadow: none;
-            border-width: 2px;
-            border-color: #f4f1ea;
-            background: transparent;
-            color: #f4f1ea;
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
         }
 
         #user-chip .btn.sm:hover {
-            background: var(--r);
+            background: var(--bad);
             transform: none;
-            box-shadow: none;
         }
 
         #hero {
-            position: relative;
-            overflow: hidden;
             text-align: center;
             padding: 3rem 1rem 3.4rem;
-            background: var(--b);
-            border-bottom: 3px solid var(--ink);
-            color: #16161d;
-        }
-
-        /* צורות דקורטיביות ברקע הבאנר */
-        #hero::before, #hero::after {
-            content: '';
-            position: absolute;
-            border: 3px solid #16161d;
-            z-index: 0;
-        }
-
-        #hero::before {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: var(--y);
-            top: -40px;
-            right: 6%;
-        }
-
-        #hero::after {
-            width: 110px;
-            height: 110px;
-            background: var(--p);
-            bottom: -45px;
-            left: 8%;
-            transform: rotate(18deg);
-            border-radius: 18px;
-        }
-
-        #hero > * {
-            position: relative;
-            z-index: 1;
+            color: #fff;
+            background:
+                radial-gradient(600px 300px at 85% 0%, rgba(255, 255, 255, 0.14), transparent 70%),
+                linear-gradient(135deg, #1e3a8a 0%, #2f5bea 100%);
         }
 
         #hero h1 {
-            font-size: 2.8rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 0.4rem;
-            text-shadow: 3px 3px 0 #fff;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
 
         #hero p {
             font-size: 1.15rem;
-            font-weight: 500;
+            opacity: 0.92;
+            font-weight: 300;
         }
 
         .chips {
@@ -303,7 +274,7 @@
             justify-content: center;
             gap: 0.7rem;
             flex-wrap: wrap;
-            margin-top: 1.1rem;
+            margin-top: 1.2rem;
         }
 
         .chip {
@@ -313,24 +284,23 @@
             padding: 0.3rem 0.95rem;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 700;
-            background: #fff;
-            border: 2px solid #16161d;
-            box-shadow: 3px 3px 0 #16161d;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         /* ==========================================================================
-           5. סרגל ניווט עליון
+           5. סרגל ניווט
            ========================================================================== */
         #nav {
             display: none;
             position: sticky;
             top: 0;
             z-index: 60;
-            gap: 0.6rem;
-            padding: 0.8rem 1rem;
-            background: var(--y);
-            border-bottom: 3px solid var(--ink);
+            gap: 0.4rem;
+            padding: 0.7rem 1rem;
+            background: var(--card);
+            border-bottom: 1px solid var(--line);
+            box-shadow: var(--shadow);
             overflow-x: auto;
             justify-content: center;
         }
@@ -339,34 +309,32 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            border: 3px solid transparent;
+            padding: 0.55rem 1.05rem;
+            border-radius: var(--radius-sm);
             background: transparent;
-            color: #16161d;
-            font-weight: 700;
+            color: var(--muted);
+            font-weight: 600;
             white-space: nowrap;
-            transition: 0.12s;
+            transition: 0.18s;
             flex-shrink: 0;
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.55);
+            background: var(--soft);
+            color: var(--primary);
         }
 
         .nav-btn.on {
-            background: #fff;
-            border-color: #16161d;
-            box-shadow: 3px 3px 0 #16161d;
+            background: var(--primary-soft);
+            color: var(--primary);
         }
 
         .nav-btn .dot {
-            background: var(--r);
+            background: var(--bad);
             color: #fff;
             font-size: 0.7rem;
             border-radius: 20px;
             padding: 0 0.5rem;
-            border: 2px solid #16161d;
         }
 
         /* כפתור יציאה בסרגל הניווט */
@@ -374,26 +342,20 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            border: 3px solid #16161d;
-            background: var(--r);
-            color: #fff;
-            font-weight: 800;
+            padding: 0.55rem 1.05rem;
+            border-radius: var(--radius-sm);
+            background: var(--bad-soft);
+            color: var(--bad);
+            font-weight: 700;
             white-space: nowrap;
             flex-shrink: 0;
-            box-shadow: 3px 3px 0 #16161d;
-            transition: 0.12s;
+            margin-right: auto;
+            transition: 0.18s;
         }
 
         .exit-btn:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 #16161d;
-        }
-
-        .exit-btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0 #16161d;
+            background: var(--bad);
+            color: #fff;
         }
 
         /* ==========================================================================
@@ -407,19 +369,19 @@
 
         .page {
             display: none;
-            animation: pop 0.3s ease;
+            animation: fade 0.3s ease;
         }
 
         .page.on { display: block; }
 
-        @keyframes pop {
-            from { opacity: 0; transform: translateY(12px) scale(0.99); }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: none; }
         }
 
         h2.title {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: 1.65rem;
+            font-weight: 800;
             margin-bottom: 0.3rem;
             display: flex;
             align-items: center;
@@ -428,48 +390,48 @@
         }
 
         h2.title i {
-            width: 46px;
-            height: 46px;
+            width: 42px;
+            height: 42px;
             display: grid;
             place-items: center;
-            font-size: 1.2rem;
-            background: var(--p);
-            color: #16161d;
-            border: 3px solid var(--ink);
-            border-radius: 14px;
-            box-shadow: 3px 3px 0 var(--ink);
+            font-size: 1.1rem;
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: 12px;
         }
 
         p.subtitle {
             color: var(--muted);
             margin-bottom: 1.5rem;
-            font-weight: 500;
         }
 
         .card {
             background: var(--card);
-            border: 3px solid var(--ink);
+            border: 1px solid var(--line);
             border-radius: var(--radius);
-            padding: 1.4rem;
+            padding: 1.5rem;
             margin-bottom: 1.4rem;
-            box-shadow: 6px 6px 0 var(--ink);
+            box-shadow: var(--shadow);
         }
 
         .card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.15rem;
-            font-weight: 800;
+            margin-bottom: 1.1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            padding-bottom: 0.7rem;
-            border-bottom: 3px dashed var(--ink);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--line);
         }
+
+        .card h3 i { color: var(--primary); }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.4rem;
+            align-items: start;
         }
 
         .grid-4 {
@@ -480,26 +442,21 @@
         }
 
         .stat {
-            padding: 1.1rem;
+            padding: 1.1rem 1.2rem;
             border-radius: var(--radius);
-            border: 3px solid var(--ink);
-            box-shadow: 5px 5px 0 var(--ink);
+            background: var(--card);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            gap: 0.9rem;
-            color: #16161d;
-            transition: 0.15s;
+            gap: 0.95rem;
+            transition: 0.2s;
         }
 
         .stat:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 7px 7px 0 var(--ink);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
-
-        .stat.s1 { background: var(--g); }
-        .stat.s2 { background: var(--p); }
-        .stat.s3 { background: var(--y); }
-        .stat.s4 { background: var(--v); color: #fff; }
 
         .stat .icon {
             width: 50px;
@@ -508,22 +465,24 @@
             display: grid;
             place-items: center;
             font-size: 1.25rem;
-            background: #fff;
-            color: #16161d;
-            border: 3px solid #16161d;
             flex-shrink: 0;
         }
 
+        .stat.s1 .icon { background: var(--ok-soft); color: var(--ok); }
+        .stat.s2 .icon { background: var(--primary-soft); color: var(--primary); }
+        .stat.s3 .icon { background: var(--warn-soft); color: var(--warn); }
+        .stat.s4 .icon { background: var(--violet-soft); color: var(--violet); }
+
         .stat b {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             display: block;
             line-height: 1;
-            font-weight: 900;
+            font-weight: 800;
         }
 
         .stat span {
             font-size: 0.85rem;
-            font-weight: 600;
+            color: var(--muted);
         }
 
         .avatar {
@@ -532,34 +491,31 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            color: #16161d;
-            font-weight: 800;
+            color: #fff;
+            font-weight: 700;
             flex-shrink: 0;
-            background: var(--p);
-            border: 3px solid var(--ink);
+            background: linear-gradient(135deg, var(--primary), var(--violet));
         }
 
         .badge {
             font-size: 0.72rem;
-            padding: 0.1rem 0.65rem;
+            padding: 0.12rem 0.65rem;
             border-radius: 20px;
-            font-weight: 800;
-            color: #16161d;
-            background: var(--b);
-            border: 2px solid var(--ink);
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-soft);
             white-space: nowrap;
         }
 
-        .badge.admin { background: var(--r); color: #fff; }
-        .badge.ok { background: var(--g); }
-        .badge.off { background: #b8b8c4; }
-        .badge.warn { background: var(--o); }
+        .badge.admin { background: var(--bad); color: #fff; }
+        .badge.ok { background: var(--ok-soft); color: var(--ok); }
+        .badge.off { background: var(--line); color: var(--muted); }
+        .badge.warn { background: var(--warn-soft); color: #b9770b; }
 
         .empty {
             text-align: center;
             color: var(--muted);
             padding: 1.5rem;
-            font-weight: 500;
         }
 
         /* ==========================================================================
@@ -568,78 +524,78 @@
         #login {
             display: flex;
             justify-content: center;
-            padding: 2.5rem 1rem 3rem;
+            padding: 3rem 1rem;
         }
 
         .login-card {
             width: 100%;
-            max-width: 470px;
-            padding: 2rem;
-            border-radius: 24px;
+            max-width: 460px;
+            padding: 2.2rem;
+            border-radius: 22px;
             background: var(--card);
-            border: 3px solid var(--ink);
-            box-shadow: 9px 9px 0 var(--ink);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-lg);
         }
 
         .logo {
-            width: 76px;
-            height: 76px;
-            border-radius: 22px;
-            margin: -3.2rem auto 1rem;
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            margin: 0 auto 1rem;
             display: grid;
             place-items: center;
-            font-size: 2rem;
-            color: #16161d;
-            background: var(--y);
-            border: 3px solid var(--ink);
-            box-shadow: 4px 4px 0 var(--ink);
-            transform: rotate(-6deg);
+            font-size: 1.8rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--violet));
+            box-shadow: 0 8px 20px rgba(47, 91, 234, 0.35);
         }
 
         .login-card h1 {
             text-align: center;
-            font-size: 1.7rem;
-            font-weight: 900;
+            font-size: 1.6rem;
+            font-weight: 800;
         }
 
         .login-card p.sub {
             text-align: center;
             color: var(--muted);
-            margin-bottom: 1.4rem;
-            font-weight: 500;
+            margin-bottom: 1.5rem;
         }
 
         .field { margin-bottom: 1rem; }
 
         .field label {
             display: block;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 0.35rem;
-            font-size: 0.92rem;
+            font-size: 0.9rem;
+            color: var(--muted);
         }
 
         .seg {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
+            gap: 0.4rem;
             margin-bottom: 1.3rem;
+            padding: 0.3rem;
+            background: var(--soft);
+            border-radius: 12px;
+            border: 1px solid var(--line);
         }
 
         .seg button {
-            padding: 0.7rem;
-            border-radius: var(--radius-sm);
-            background: var(--card);
-            color: var(--ink);
-            border: 3px solid var(--ink);
-            font-weight: 800;
-            transition: 0.12s;
+            padding: 0.6rem;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--muted);
+            font-weight: 600;
+            transition: 0.18s;
         }
 
         .seg button.on {
-            background: var(--y);
-            color: #16161d;
-            box-shadow: 4px 4px 0 var(--ink);
-            transform: translate(-1px, -1px);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(47, 91, 234, 0.35);
         }
 
         .pw-wrap { position: relative; }
@@ -651,17 +607,17 @@
             top: 50%;
             transform: translateY(-50%);
             background: none;
-            color: var(--ink);
-            font-size: 1.1rem;
+            color: var(--muted);
+            font-size: 1.05rem;
         }
 
         .err {
-            color: var(--r);
+            color: var(--bad);
             text-align: center;
             min-height: 1.4rem;
             margin-top: 0.8rem;
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 0.93rem;
+            font-weight: 500;
         }
 
         /* ==========================================================================
@@ -669,24 +625,23 @@
            ========================================================================== */
         .ann {
             padding: 1rem 1.2rem;
-            border-radius: 14px;
-            margin-bottom: 0.9rem;
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
             background: var(--soft);
-            border: 3px solid var(--ink);
+            border: 1px solid var(--line);
+            border-right: 4px solid var(--primary);
             position: relative;
         }
 
         .ann.pin {
-            background: var(--y);
-            color: #16161d;
-            box-shadow: 4px 4px 0 var(--ink);
+            background: var(--warn-soft);
+            border-right-color: var(--warn);
         }
 
         .ann .meta {
             font-size: 0.8rem;
             margin-bottom: 0.3rem;
-            font-weight: 700;
-            opacity: 0.75;
+            color: var(--muted);
         }
 
         .ann .x {
@@ -703,7 +658,7 @@
             align-items: center;
             gap: 0.9rem;
             padding: 0.75rem 0;
-            border-bottom: 2px dashed var(--ink);
+            border-bottom: 1px solid var(--line);
         }
 
         .event:last-child { border-bottom: none; }
@@ -714,23 +669,22 @@
             border-radius: 12px;
             display: grid;
             place-items: center;
-            background: var(--v);
-            color: #fff;
-            border: 3px solid var(--ink);
+            background: var(--violet-soft);
+            color: var(--violet);
             flex-shrink: 0;
         }
 
         .event .ev-info { flex: 1; min-width: 0; }
-        .event .ev-info small { color: var(--muted); font-weight: 500; }
+        .event .ev-info small { color: var(--muted); }
         .event.past { opacity: 0.5; }
 
         /* ==========================================================================
            10. סקרים
            ========================================================================== */
         .poll h4 {
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             margin-bottom: 0.9rem;
-            font-weight: 800;
+            font-weight: 700;
             display: flex;
             gap: 0.6rem;
             align-items: center;
@@ -744,32 +698,31 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.75rem 1rem;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.55rem;
             border-radius: var(--radius-sm);
-            border: 3px solid var(--ink);
+            border: 1.5px solid var(--line);
             background: var(--card);
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.12s;
+            font-weight: 500;
+            transition: 0.18s;
         }
 
-        .opt:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
-        .opt.mine { border-color: var(--g); box-shadow: 4px 4px 0 var(--g); }
+        .opt:hover { border-color: var(--primary); }
+        .opt.mine { border-color: var(--ok); }
 
         .opt .bar {
             position: absolute;
             inset: 0 0 0 auto;
             width: 0;
             z-index: 0;
-            background: var(--b);
-            opacity: 0.55;
+            background: var(--primary-soft);
             transition: width 0.5s;
         }
 
         .opt span { position: relative; z-index: 1; }
 
         .poll.closed .opt { cursor: default; }
-        .poll.closed .opt:hover { transform: none; box-shadow: none; }
+        .poll.closed .opt:hover { border-color: var(--line); }
 
         .poll-foot {
             display: flex;
@@ -780,7 +733,6 @@
             margin-top: 0.7rem;
             gap: 0.5rem;
             flex-wrap: wrap;
-            font-weight: 500;
         }
 
         .opt-inputs input { margin-bottom: 0.55rem; }
@@ -789,32 +741,32 @@
            11. שו"ת
            ========================================================================== */
         .qa-item {
-            border: 3px solid var(--ink);
+            border: 1px solid var(--line);
             border-radius: 14px;
             margin-bottom: 1rem;
             overflow: hidden;
             background: var(--card);
+            box-shadow: var(--shadow);
         }
 
         .qa-q {
             padding: 0.9rem 1.1rem;
-            font-weight: 800;
+            font-weight: 700;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 0.6rem;
-            background: var(--p);
-            color: #16161d;
+            background: var(--violet-soft);
         }
 
-        .qa-q small { font-weight: 600; opacity: 0.8; }
+        .qa-q small { font-weight: 400; color: var(--muted); }
 
         .qa-a { padding: 0.9rem 1.1rem; }
         .qa-a.waiting { color: var(--muted); font-style: italic; }
 
         .qa-admin {
             padding: 0.9rem 1.1rem;
-            border-top: 3px dashed var(--ink);
+            border-top: 1px solid var(--line);
             background: var(--soft);
         }
 
@@ -828,10 +780,10 @@
             flex-direction: column;
             height: 540px;
             border-radius: var(--radius);
-            border: 3px solid var(--ink);
+            border: 1px solid var(--line);
             overflow: hidden;
             background: var(--card);
-            box-shadow: 6px 6px 0 var(--ink);
+            box-shadow: var(--shadow);
         }
 
         .msgs {
@@ -840,27 +792,29 @@
             padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.7rem;
             background: var(--soft);
         }
 
         .msg {
             max-width: 78%;
             padding: 0.6rem 0.95rem;
-            border-radius: 16px;
+            border-radius: 14px;
             background: var(--card);
-            border: 3px solid var(--ink);
+            border: 1px solid var(--line);
             align-self: flex-start;
             word-break: break-word;
-            font-weight: 500;
+            box-shadow: var(--shadow);
         }
 
         .msg.me {
             align-self: flex-end;
-            background: var(--b);
-            color: #16161d;
-            box-shadow: -3px 3px 0 var(--ink);
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
         }
+
+        .msg.me .h, .msg.me .h b { color: #e6ecff; }
 
         .msg .h {
             display: flex;
@@ -868,23 +822,25 @@
             font-size: 0.76rem;
             margin-bottom: 0.15rem;
             align-items: center;
-            opacity: 0.85;
+            color: var(--muted);
         }
 
-        .msg .h b { font-weight: 800; }
+        .msg .h b { color: var(--ink); font-weight: 700; }
 
         .msg .del {
             background: none;
-            color: var(--r);
+            color: var(--bad);
             font-size: 0.85rem;
             margin-right: auto;
         }
+
+        .msg.me .del { color: #ffd1d3; }
 
         .chat-bar {
             display: flex;
             gap: 0.6rem;
             padding: 0.8rem;
-            border-top: 3px solid var(--ink);
+            border-top: 1px solid var(--line);
             background: var(--card);
         }
 
@@ -916,14 +872,14 @@
             padding: 0.9rem;
             border-radius: 14px;
             background: var(--card);
-            border: 3px solid var(--ink);
-            box-shadow: 4px 4px 0 var(--ink);
-            transition: 0.12s;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            transition: 0.18s;
         }
 
         .u:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0 var(--ink);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .u .info { flex: 1; min-width: 0; }
@@ -933,28 +889,27 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-weight: 800;
+            font-weight: 700;
         }
 
-        .u .info small { color: var(--muted); font-weight: 600; }
-        .u.kicked { opacity: 0.6; box-shadow: none; }
+        .u .info small { color: var(--muted); }
+        .u.kicked { opacity: 0.6; }
 
         .pulse {
-            width: 11px;
-            height: 11px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--g);
-            border: 2px solid var(--ink);
+            background: #22c55e;
             display: inline-block;
             animation: pulse 2s infinite;
         }
 
-        .pulse.off { background: #b8b8c4; animation: none; }
+        .pulse.off { background: #b8bfd2; animation: none; }
 
         /* ==========================================================================
            14. פאנל ניהול
            ========================================================================== */
-        .admin-card { background: var(--soft); }
+        .admin-card { border-top: 3px solid var(--bad); }
 
         .tools {
             display: grid;
@@ -977,14 +932,14 @@
             bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: #16161d;
+            background: #12192e;
             color: #fff;
             padding: 0.8rem 1.5rem;
             border-radius: var(--radius-sm);
-            border: 3px solid var(--y);
-            font-weight: 700;
+            font-weight: 500;
             transition: 0.3s;
             z-index: 99;
+            box-shadow: var(--shadow-lg);
         }
 
         #toast.show { transform: translateX(-50%) translateY(0); }
@@ -992,11 +947,10 @@
         footer {
             text-align: center;
             padding: 1.6rem 1rem;
-            font-weight: 700;
-            background: #16161d;
-            color: #f4f1ea;
-            border-top: 3px solid var(--ink);
+            background: #12192e;
+            color: #9aa5c6;
             margin-top: 2rem;
+            font-size: 0.93rem;
         }
 
         /* ==========================================================================
@@ -1010,10 +964,11 @@
             .grid-2 { grid-template-columns: 1fr; }
             .grid-4 { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
-            #hero h1 { font-size: 1.9rem; }
+            #hero h1 { font-size: 1.8rem; }
             #nav { justify-content: flex-start; }
             #top-bar { justify-content: center; text-align: center; }
             .container { margin: 1.2rem auto; }
+            .exit-btn { margin-right: 0; }
         }
     </style>
 </head>
@@ -1026,7 +981,7 @@
         <div class="info">
             <span><i class="fa-solid fa-school"></i> בית ספר יד ששון</span>
             <span><i class="fa-solid fa-users"></i> כיתה ח'1</span>
-            <span><i class="fa-solid fa-calendar"></i> שנת הלימודים תשפ"ו</span>
+            <span><i class="fa-solid fa-calendar"></i> שנת הלימודים תשפ"ז</span>
         </div>
         <div class="right">
             <div class="status">
@@ -1047,12 +1002,12 @@
          באנר ראשי
          ===================================================================== -->
     <header id="hero">
-        <h1>האתר הרשמי של כיתה ח1 מלכיאל</h1>
-        <p>פורטל הלמידה, התקשורת והפעילות הכיתתית המרכזי של השכבה</p>
+        <h1>האתר הרשמי של כיתה ח'1</h1>
+        <p>בית ספר יד ששון · פורטל הלמידה, התקשורת והפעילות הכיתתית</p>
         <div class="chips">
             <div class="chip"><i class="fa-solid fa-bolt"></i> סנכרון בלייב Firebase</div>
-            <div class="chip"><i class="fa-solid fa-shield-cat"></i> גישה מאובטחת ומנוהלת</div>
-            <div class="chip"><i class="fa-solid fa-graduation-cap"></i> שנת הלימודים תשפ"ו</div>
+            <div class="chip"><i class="fa-solid fa-shield-halved"></i> גישה מאובטחת ומנוהלת</div>
+            <div class="chip"><i class="fa-solid fa-graduation-cap"></i> שנת הלימודים תשפ"ז</div>
         </div>
     </header>
 
@@ -1080,8 +1035,8 @@
             <p class="sub">בחר סוג כניסה, כתוב את שמך והכנס סיסמה</p>
 
             <div class="seg">
-                <button id="seg-student" class="on" type="button">🎒 תלמיד</button>
-                <button id="seg-admin" type="button">🛡️ מנהל</button>
+                <button id="seg-student" class="on" type="button"><i class="fa-solid fa-user-graduate"></i> תלמיד</button>
+                <button id="seg-admin" type="button"><i class="fa-solid fa-user-shield"></i> מנהל</button>
             </div>
 
             <div class="field">
@@ -1137,10 +1092,10 @@
                     <h3><i class="fa-solid fa-pen"></i> פרסום הודעה ללוח</h3>
                     <textarea id="ann-text" placeholder="כתוב הודעה לכל הכיתה..."></textarea>
                     <div style="display: flex; gap: 0.8rem; margin-top: 0.8rem; align-items: center; flex-wrap: wrap;">
-                        <label style="display: flex; gap: 0.5rem; align-items: center; font-weight: 700;">
+                        <label style="display: flex; gap: 0.5rem; align-items: center; font-weight: 500; color: var(--muted);">
                             <input type="checkbox" id="ann-pin"> הצמד למעלה 📌
                         </label>
-                        <button class="btn pink" id="ann-send" style="margin-right: auto;"><i class="fa-solid fa-bullhorn"></i> פרסם</button>
+                        <button class="btn" id="ann-send" style="margin-right: auto;"><i class="fa-solid fa-bullhorn"></i> פרסם</button>
                     </div>
                 </div>
 
@@ -1165,7 +1120,7 @@
                     <div class="msgs" id="msgs-chat"></div>
                     <div class="chat-bar">
                         <input id="in-chat" type="text" maxlength="500" placeholder="כתוב הודעה לכיתה...">
-                        <button class="btn blue" id="go-chat"><i class="fa-solid fa-paper-plane"></i> שלח</button>
+                        <button class="btn" id="go-chat"><i class="fa-solid fa-paper-plane"></i> שלח</button>
                     </div>
                 </div>
             </section>
@@ -1214,7 +1169,7 @@
                 <h2 class="title"><i class="fa-solid fa-user-group"></i> תלמידים שנכנסו למערכת</h2>
                 <p class="subtitle">
                     כל מי שנכנס לפורטל. נקודה ירוקה = מחובר עכשיו.
-                    <span class="admin-only" style="color: var(--r); font-weight: 800;">כמנהל יש לך הרשאה לסלק תלמידים.</span>
+                    <span class="admin-only" style="color: var(--bad); font-weight: 700;">כמנהל יש לך הרשאה לסלק תלמידים.</span>
                 </p>
 
                 <div class="toolbar">
@@ -1832,7 +1787,7 @@
                         return `
                             <div class="opt ${mine === i ? 'mine' : ''}" data-vote="${p.id}" data-i="${i}">
                                 <div class="bar" style="width: ${pct}%"></div>
-                                <span>${mine === i ? '<i class="fa-solid fa-circle-check" style="color: var(--g);"></i> ' : ''}${esc(opt)}</span>
+                                <span>${mine === i ? '<i class="fa-solid fa-circle-check" style="color: var(--ok);"></i> ' : ''}${esc(opt)}</span>
                                 <span><b>${pct}%</b> · ${counts[i]}</span>
                             </div>`;
                     }).join('');
@@ -1932,7 +1887,7 @@
 
                 $('qa-list').innerHTML = arr.map(item => {
                     const answerBlock = item.answer
-                        ? `<div class="qa-a"><b><i class="fa-solid fa-circle-check" style="color: var(--g);"></i> תשובת הצוות${item.answeredBy ? ' (' + esc(item.answeredBy) + ')' : ''}:</b><br>${esc(item.answer).replace(/\n/g, '<br>')}</div>`
+                        ? `<div class="qa-a"><b><i class="fa-solid fa-circle-check" style="color: var(--ok);"></i> תשובת הצוות${item.answeredBy ? ' (' + esc(item.answeredBy) + ')' : ''}:</b><br>${esc(item.answer).replace(/\n/g, '<br>')}</div>`
                         : '<div class="qa-a waiting"><i class="fa-regular fa-clock"></i> ממתין לתשובה מהצוות...</div>';
 
                     const adminBlock = me.role === 'admin' ? `
